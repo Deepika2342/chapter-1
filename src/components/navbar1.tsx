@@ -1,3 +1,5 @@
+"use client"
+
 import { PiCopyFill } from "react-icons/pi";
 import { VscChromeClose, VscChromeMinimize } from "react-icons/vsc";
 
