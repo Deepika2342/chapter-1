@@ -13,11 +13,11 @@ function Home() {
   useEffect(() => {
     const fadeTimer = setTimeout(() => {
       setFadeOut(true);
-    }, 2500); 
+    }, 2500);
 
     const redirectTimer = setTimeout(() => {
       router.push("/auth/login");
-    }, 1000); 
+    }, 1000);
 
     return () => {
       clearTimeout(fadeTimer);
