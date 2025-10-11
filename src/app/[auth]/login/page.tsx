@@ -63,7 +63,7 @@ const LoginPage = () => {
               </label>
 
               <input
-                suppressHydrationWarning
+                
                 type={pass ? "text" : "password"}
                 placeholder="••••••••"
                className="w-full font-outfit border-[1px] border-border p-2 focus:outline-none focus:ring-2 focus:ring-primary placeholder-black"
