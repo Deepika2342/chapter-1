@@ -1,4 +1,6 @@
 import Image from "next/image";
+import logo from "@/img/Logo.png"
+
 
 export default function LoadingScreen() {
   return (
@@ -6,7 +8,7 @@ export default function LoadingScreen() {
       {/* Logo */}
       <Image
         className="object-contain"
-        src="/logo.png"
+        src={logo}
         alt="Chapter Logo"
         width={350}
         height={103}
