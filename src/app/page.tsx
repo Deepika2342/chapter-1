@@ -16,7 +16,7 @@ function Home() {
     }, 2500); 
 
     const redirectTimer = setTimeout(() => {
-      router.push("/auth/login");
+      router.push("/login");
     }, 1000); 
 
     return () => {
