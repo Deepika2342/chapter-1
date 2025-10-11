@@ -12,22 +12,21 @@ const LoginPage = () => {
   const [pass, setPass] = useState(false);
   return (
     <div className="w-full h-dvh overflow-hidden bg-background flex flex-col">
-      {/* Main content */}
       <div className="flex flex-col items-center justify-center flex-1">
-        {/* Logo */}
-        <div className="text-center mb-6 mt-2  ">
+        <div className="text-center mb-6 mt-2">
           <Image
-            className="object-contain mx-auto"
-            src="/logo.png"
+            src="/Logo.png"
             alt="Chapter Logo"
             width={250}
             height={103}
             quality={100}
+            className="object-contain mx-auto"
           />
           <p className="font-outfit font-normal text-[10px] leading-[125%] tracking-[0.6em] uppercase mt-2">
             Syncing your numbers
           </p>
         </div>
+
 
         {/* Login Box */}
         <div className="bg-white w-full max-w-[410px] max-h-[500px] shadow-2xl p-6 text-center  shadow-lg-custom">
