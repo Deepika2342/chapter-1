@@ -6,6 +6,7 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import logo from "@/img/Logo.png"
 
 const LoginPage = () => {
   const router = useRouter();
@@ -15,21 +16,21 @@ const LoginPage = () => {
       <div className="flex flex-col items-center justify-center flex-1">
         <div className="text-center mb-6 mt-2">
           <Image
-            src="/Logo.png"
+            src={logo}
             alt="Chapter Logo"
-            width={250}
-            height={103}
+            width={220}
+            height={70}
             quality={100}
             className="object-contain mx-auto"
           />
-          <p className="font-outfit font-normal text-[10px] leading-[125%] tracking-[0.6em] uppercase mt-2">
+          <p className="font-outfit font-normal text-[7px] leading-[125%] tracking-[0.6em] uppercase mt-2">
             Syncing your numbers
           </p>
         </div>
 
 
         {/* Login Box */}
-        <div className="bg-white w-full max-w-[410px] max-h-[500px] shadow-2xl p-6 text-center  shadow-lg-custom">
+        <div className="bg-white w-full max-w-[300px] max-h-[330px] shadow-2xl p-6 text-center  shadow-lg-custom">
           {/* Login Heading */}
           <h2 className="font-outfit font-bold text-green-light   leading-[100%] tracking-[0%] text-center uppercase">
             {" "}
@@ -41,7 +42,7 @@ const LoginPage = () => {
           </p>
 
           {/* Login Form */}
-          <form className="flex flex-col gap-1 text-left h-[300px] justify-between m-auto">
+          <form className="flex flex-col  text-left h-[300px] gap-4 m-auto">
             <div>
               {/* Label */}
               <label className="block font-outfit font-normal text-12 leading-[100%] tracking-[0%] lable-green mb-1">
@@ -51,8 +52,8 @@ const LoginPage = () => {
               {/* Input */}
               <input
                 type="email"
-                placeholder="abc@gmail.com"
-                className="w-full font-outfit border-[1px] border-border p-2 focus:outline-none focus:ring-2 focus:ring-primary"
+                placeholder=""
+                className="w-full font-outfit border-[1px] border-border p-2 focus:outline-none "
               />
             </div>
 
@@ -64,8 +65,8 @@ const LoginPage = () => {
               <input
                 
                 type={pass ? "text" : "password"}
-                placeholder="••••••••"
-               className="w-full font-outfit border-[1px] border-border p-2 focus:outline-none focus:ring-2 focus:ring-primary placeholder-black"
+                placeholder=""
+               className="w-full font-outfit border-[1px] border-border p-2 focus:outline-none "
 
              />
               {/* Eye Icon */}
@@ -87,7 +88,7 @@ const LoginPage = () => {
               <label className="flex items-center gap-2 font-outfit font-normal text-[16.89px] leading-[100%] tracking-[0%]">
                 <input
                   type="checkbox"
-                  className="w-5 h-5 accent-green-light rounded-none"
+                  className="w-4 h-4 accent-green-light rounded-none"
                 />
                 Remember me
               </label>
@@ -105,7 +106,7 @@ const LoginPage = () => {
             {/* Button */}
             <Button
               onClick={() => router.push("/welcome")}
-              className=" bg-green-btn hover:bg-green-light text-white text-2xl uppercase font-medium rounded-none h-[60px] cursor-pointer"
+              className=" bg-green-btn hover:bg-green-light text-white text-1xl uppercase font-medium rounded-none h-[40px] cursor-pointer"
               style={{
                 animationDuration: "0ms",
               }}
@@ -117,7 +118,7 @@ const LoginPage = () => {
 
         <p className="font-outfit font-bold text-[20px] leading-[100%] tracking-[0%] text-center mt-8 mb-7">
           New user?{" "}
-          <Link href="/signup">
+       <Link href="/auth/signup">
             <span className="text-green-medium cursor-pointer ">Sign Up</span>
           </Link>
         </p>
