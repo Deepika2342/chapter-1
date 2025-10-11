@@ -3,6 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import signup from "@/img/Signup.png"
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 export default function SignupPage() {
   return (
@@ -37,7 +39,7 @@ export default function SignupPage() {
           </div>
 
           <form className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+            {/* <div className="grid grid-cols-2 gap-4">
               <input
                 type="text"
                 placeholder="First Name*"
@@ -48,7 +50,19 @@ export default function SignupPage() {
                 placeholder="Last Name*"
                 className="border border-gray-300 rounded-md p-3 text-sm w-full focus:outline-none focus:ring-2 focus:ring-[#105F62]"
               />
-            </div>
+            </div> */}
+ <div className="grid grid-cols-2 gap-4">
+           {/* <div className="grid w-full max-w-sm items-center gap-3"> */}
+      <Label htmlFor="email">Email</Label>
+      <Input type="email" id="email" placeholder="Email" />
+    {/* </div> */}
+           {/* <div className="grid w-full max-w-sm items-center gap-3"> */}
+      <Label htmlFor="email">Email</Label>
+      <Input type="email" id="email" placeholder="Email" />
+    {/* </div> */}
+    </div>
+
+      
 
             <input
               type="email"
