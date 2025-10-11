@@ -1,3 +1,5 @@
+
+"use client";
 import Image from "next/image";
 import logo from "@/img/Logo.png"
 
@@ -12,7 +14,6 @@ export default function LoadingScreen() {
         alt="Chapter Logo"
         width={350}
         height={103}
-        quality={100}
       />
 
       {/* Text below logo */}
