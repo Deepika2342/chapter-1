@@ -23,10 +23,7 @@ const LoginPage = () => {
             quality={100}
             className="object-contain mx-auto"
           />
-          <p className="font-outfit font-normal text-[7px] leading-[125%] tracking-[0.6em] uppercase mt-2">
-            Syncing your numbers
-          </p>
-        </div>
+         </div>
 
 
         {/* Login Box */}
@@ -37,7 +34,7 @@ const LoginPage = () => {
             LOGIN{" "}
           </h2>
 
-          <p className="font-outfit font-light text-[12px] leading-[100%] tracking-[0%] text-center mb-6 bg-darkBg lable-green">
+          <p className="font-outfit font-light text-[12px] leading-[100%] tracking-[0%] text-center mb-6 bg-darkBg ">
             Access to our dashboard
           </p>
 
@@ -95,7 +92,7 @@ const LoginPage = () => {
 
               <Link
                 href="#"
-                className="font-outfit font-normal text-[12px] leading-[100%] tracking-[0%] hover:underline text:text-shade"
+                className="font-outfit font-normal text-[12px] leading-[100%] tracking-[0%] hover:underline text:dark-green"
               >
                 {" "}
                 Forgot password?
@@ -118,7 +115,7 @@ const LoginPage = () => {
 
         <p className="font-outfit font-bold text-[20px] leading-[100%] tracking-[0%] text-center mt-8 mb-7">
           New user?{" "}
-       <Link href="/auth/signup">
+       <Link href="/signup">
             <span className="text-green-medium cursor-pointer ">Sign Up</span>
           </Link>
         </p>
