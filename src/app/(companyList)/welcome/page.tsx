@@ -10,7 +10,6 @@ import Navbar1 from "@/components/navbar1";
 const WelcomePage = () => {
     const [menuOpen, setMenuOpen] = useState(false);
 
-    // ✅ Disable body scroll when sidebar is open
     useEffect(() => {
         if (menuOpen) {
             document.body.style.overflow = "hidden";
