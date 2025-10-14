@@ -23,20 +23,7 @@ export default function SignupPage() {
 
         {/* RIGHT SIDE */}
         <div className="p-10 md:p-14 bg-[#F5FFFC]">
-          <div className="text-center mb-8">
-            <div className="inline-block bg-[#0A5B5F] text-white px-4 py-1 rounded-md text-sm font-semibold tracking-wide">
-              CHAPTER .1
-            </div>
-            <p className="mt-2 text-gray-600 text-sm tracking-widest">
-              SYNCING YOUR NUMBERS
-            </p>
-            <h2 className="text-2xl font-bold text-[#105F62] mt-6">
-              CREATE YOUR ACCOUNT
-            </h2>
-            <p className="text-gray-500 text-sm mt-1">
-              Sign up to get started. It’s fast, secure, and free to begin.
-            </p>
-          </div>
+          
 
           <form className="space-y-4">
             {/* <div className="grid grid-cols-2 gap-4">
