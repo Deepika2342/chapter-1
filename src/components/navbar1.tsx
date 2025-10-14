@@ -67,6 +67,9 @@ const Navbar1 = () => {
             {/* Dropdown */}
             {dropdownOpen && (
               <div className="absolute right-0 mt-2 w-32 bg-white shadow-lg rounded border border-gray-200 z-50">
+                 <button className="bg-[#C8E6C9] w-full px-4 py-2 font-semibold text-[#00251A]">
+                   My Profile
+                  </button>
                 <button className="w-full text-left px-4 py-2 hover:bg-gray-100">
                   Settings
                 </button>
