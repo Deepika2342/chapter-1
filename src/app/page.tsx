@@ -1,6 +1,3 @@
-import LoadingRedirect from "./LoadingRedirect";
-
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -13,12 +10,13 @@ function Home() {
 
   useEffect(() => {
     const fadeTimer = setTimeout(() => {
-      setFadeOut(true);
+      setFadeOut(true); // Trigger fade-out effect after 2500ms
     }, 2500);
 
     const redirectTimer = setTimeout(() => {
+      // Redirect after fade-out completes (3000ms)
       router.push("/auth/login");
-    }, 1000);
+    }, 3000); // Ensure this is after the fade
 
     return () => {
       clearTimeout(fadeTimer);
@@ -34,3 +32,5 @@ function Home() {
     </div>
   );
 }
+
+export default Home;
