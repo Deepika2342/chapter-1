@@ -37,9 +37,6 @@ const Navbar1 = () => {
             quality={100}
             className="object-contain"
           />
-          <p className="font-outfit font-normal text-[5px] leading-[125%] tracking-[0.6em] uppercase mt-1">
-            Syncing your numbers
-          </p>
         </div>
 
         {/* Right side: Notification + Profile */}
