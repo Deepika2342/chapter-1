@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import { LuMenu } from "react-icons/lu";
 
@@ -50,47 +50,107 @@ const SelectCompany = () => {
         </div>
 
         {/* Controls Section */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between px-3 py-2 border-b border-gray-200 space-y-2 sm:space-y-0 sm:space-x-5">
-          <div className="flex flex-wrap items-center space-x-3">
-            <select className="text-sm bg-transparent outline-none text-gray-700 cursor-pointer hover:text-black">
-              <option value="no">Count No.</option>
-              <option value="10">10</option>
-              <option value="20">20</option>
-              <option value="50">50</option>
-              <option value="100">100</option>
-            </select>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between px-3 py-2 border-b border-gray-200 space-y-3 sm:space-y-0 sm:space-x-5 ">
+          <div className="flex flex-wrap items-center gap-4 border-0 border-r-1 border-r-border p-2">
 
-            <select className="text-sm bg-transparent outline-none text-gray-700 cursor-pointer hover:text-black">
-              <option value="export">Export</option>
-              <option value="copy">Copy</option>
-              <option value="csv">CSV</option>
-              <option value="pdf">PDF</option>
-              <option value="excel">Excel</option>
-            </select>
+            {/* Count No. Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setMenuOpen(menuOpen === "count" ? null : "count")}
+                className="text-sm px-3 py-1 border-border-r bg-white hover:bg-gray-100 flex items-center gap-1 border-0 border-r-1 border-r-border p-2"
+              >
+                Count No.
+                <span className="text-[10px]">▼</span>
+              </button>
+              {menuOpen === "count" && (
+                <div className="absolute z-15 mt-1 bg-white border shadow-md w-28">
+                  {["10", "20", "50", "100"].map((count) => (
+                    <button
+                      key={count}
+                      onClick={() => {
+                        console.log("Count:", count);
+                        setMenuOpen(null);
+                      }}
+                      className="block w-full text-left px-3 py-2 text-sm hover:bg-gray-100"
+                    >
+                      {count}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Export Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setMenuOpen(menuOpen === "export" ? null : "export")}
+                className="text-sm px-3 py-1  bg-white hover:bg-gray-100 text-gray-700 flex items-center gap-1"
+              >
+                Export
+                <span className="text-[10px]">▼</span>
+              </button>
+              {menuOpen === "export" && (
+                <div className="absolute z-10 mt-1 bg-white border w-28">
+                  {["Copy", "CSV", "PDF", "Excel"].map((opt) => (
+                    <button
+                      key={opt}
+                      onClick={() => {
+                        console.log("Export:", opt);
+                        setMenuOpen(null);
+                      }}
+                      className="block w-full text-left px-3 py-2 text-sm hover:bg-gray-100"
+                    >
+                      {opt}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
-          <div className="flex items-center w-full sm:w-auto space-x-2">
-            <div className="flex flex-1 sm:flex-none items-center w-full sm:w-64 border rounded px-2 py-1 bg-gray-50">
+          {/* Search and Sort Section */}
+          <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto ">
+            <div className="flex items-center w-full sm:w-64 px-2 py-1 border-0 border-r-1 border-r-border p-2" >
               <input
                 type="text"
                 placeholder="Search..."
-                className="flex-1 text-sm outline-none bg-transparent text-gray-700 placeholder-gray-400"
+                className=""
               />
-              <IoSearch className="w-5 h-5 text-gray-500" />
+              <IoSearch className="w-5 h-5 text-2xl" />
             </div>
 
-            <select className="text-sm bg-transparent outline-none text-gray-700 cursor-pointer hover:text-black">
-              <option value="">Sort By</option>
-              <option value="date">Created Date</option>
-              <option value="year">Financial Year</option>
-              <option value="alpha">A to Z</option>
-            </select>
+            {/* Sort Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setMenuOpen(menuOpen === "sort" ? null : "sort")}
+                className="text-sm px-3 py-1  bg-white hover:bg-gray-100 text-gray-700 flex items-center gap-1"
+              >
+                Sort By
+                <span className="text-[10px]">▼</span>
+              </button>
+              {menuOpen === "sort" && (
+                <div className="absolute z-15  bg-white  w-36">
+                  {["Created Date", "Financial Year", "A to Z"].map((sort) => (
+                    <button
+                      key={sort}
+                      onClick={() => {
+                        console.log("Sort:", sort);
+                        setMenuOpen(null);
+                      }}
+                      className="block w-full text-left px-3 py-2 text-sm hover:bg-gray-100"
+                    >
+                      {sort}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
         {/* Table Section */}
-        <div className="overflow-x-auto">
-          <table className="min-w-full text-sm text-left text-gray-700 border border-gray-200">
+        <div className="">
+          <table className="min-w-full text-sm text-left text-gray-700 border border-border">
             <thead className="bg-emerald-100 text-gray-900 uppercase text-xs font-semibold">
               <tr>
                 <th className="px-4 py-3 border-r border-gray-200">ID</th>
@@ -142,7 +202,7 @@ const SelectCompany = () => {
                         </button>
                         <button
                           onClick={() => alert(`Delete ${company.name}`)}
-                          className="block w-full text-left px-3 py-2 hover:bg-gray-100 text-red-600"
+                          className="block w-full text-left px-3 py-2 hover:bg-gray-100"
                         >
                           Delete
                         </button>
@@ -156,27 +216,21 @@ const SelectCompany = () => {
         </div>
 
         {/* Footer Section */}
-        <div className="flex flex-col sm:flex-row justify-between items-end bg-white mt-2 p-2 border-t border-gray-200 space-y-2 sm:space-y-0">
-          <div className="text-sm text-gray-800">
-            Showing <span className="font-medium">1-8</span> of <span className="font-medium">20</span> results
-          </div>
+        <div className="flex flex-col sm:flex-row justify-between items-center bg-white p-3 border-t border-border mt-30 mb-2 text-sm text-black font-bold">
+          <p>Showing 1–8 of 20 results</p>
 
-          <div className="flex flex-wrap items-center space-x-1 text-sm">
-            <button className="px-3 py-1 text-[#072B2C] font-bold">PREVIOUS</button>
-
-            {[1, 2, 3, "...", 10].map((page, idx) => (
-              <button
-                key={idx}
-                className={`px-3 py-1 border rounded-full ${page === 1 ? "bg-green-700 text-white font-bold" : "text-gray-800"}`}
-              >
-                {page}
-              </button>
-            ))}
-
-            <button className="px-3 py-1 text-black font-bold">NEXT</button>
+          <div className="flex items-center space-x-3">
+            <button className="text-black font-bold hover:text-green-700">PREVIOUS</button>
+            <div className="flex space-x-1">
+              <button className="px-2 py-1 border border-black rounded-full text-white bg-green-700">1</button>
+              <button className="text-black px-1 py-1 border border-white rounded-full">2</button>
+              <button className="text-black px-1 py-1 border border-white rounded-full">3</button>
+              <span>......</span>
+              <button className="text-black px-1 py-1 border border-white rounded-full">10</button>
+            </div>
+            <button className="text-black">NEXT</button>
           </div>
         </div>
-
       </div>
     </div>
   );
