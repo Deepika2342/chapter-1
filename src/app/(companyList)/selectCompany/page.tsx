@@ -2,9 +2,9 @@
 
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { IoSearch } from "react-icons/io5";
+import { useState } from "react";
 import { LuMenu } from "react-icons/lu";
+import { IoCloseCircleOutline, IoSearch } from "react-icons/io5";
 
 const companies = [
   { id: 106, name: "ACE INTERNATIONAL", created: "01-09-2023", contact: "985 789 5487", address: "123 Main Street, Anytown" },
@@ -20,15 +20,16 @@ const companies = [
 const SelectCompany = () => {
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState<string | number | null>(null);
+  const [showModal, setShowModal] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
   return (
     <div className="flex flex-col min-h-screen bg-[#E0F4EC]">
       {/* Main Container */}
       <div className="flex-1 bg-white">
-
         {/* Header Section */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center px-4 sm:px-6 py-3 border-b border-gray-200">
-          <div className="mb-2 sm:mb-0">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center px-4 sm:px-2 py-3 border-b border-gray-200">
+          <div className="mb-1 sm:mb-0">
             <h2 className="text-xl sm:text-2xl md:text-3xl font-bold">Select Company</h2>
             <p className="text-xs sm:text-sm text-[#007F5F] font-extralight">
               Accounting Books / <span className="font-extralight">Select Company</span>
@@ -36,10 +37,15 @@ const SelectCompany = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-2 w-full sm:w-auto">
-            <Button className="bg-[#004D40] text-white px-2 py-1 text-sm rounded-none hover:bg-[#00695C] w-full sm:w-auto transition">
+            {/* CREATE COMPANY button */}
+            <Button
+              onClick={() => setShowModal(true)}
+              className="bg-[#004D40] text-white px-2 py-1 text-sm rounded-none hover:bg-[#00695C] w-full sm:w-auto transition"
+            >
               CREATE COMPANY
             </Button>
 
+            {/* Menu Icon */}
             <div className="relative sm:ml-0 ml-auto">
               <LuMenu
                 className="text-gray-600 text-2xl hover:text-green-700 cursor-pointer"
@@ -49,107 +55,81 @@ const SelectCompany = () => {
           </div>
         </div>
 
-        {/* Controls Section */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between px-3 py-2 border-b border-gray-200 space-y-3 sm:space-y-0 sm:space-x-5 ">
-          <div className="flex flex-wrap items-center gap-4 border-0 border-r-1 border-r-border p-2">
+        {/* Modal (Popup) */}
+        {showModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+            <div className="bg-white rounded shadow-lg w-[90%] sm:w-[500px]">
+              {/* Modal Header */}
+              <div className="bg-[#105F62] text-white flex justify-between items-center px-4 py-2">
+                <h2 className="text-md font-bold">Create Company</h2>
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="text-white text-lg font-bold w-[24px] h-[24px] flex items-center justify-center rounded-full hover:bg-[#00695C] transition"
+                >
+                  <IoCloseCircleOutline />
+                </button>
+              </div>
 
-            {/* Count No. Dropdown */}
-            <div className="relative">
-              <button
-                onClick={() => setMenuOpen(menuOpen === "count" ? null : "count")}
-                className="text-sm px-3 py-1 border-border-r bg-white hover:bg-gray-100 flex items-center gap-1 border-0 border-r-1 border-r-border p-2"
-              >
-                Count No.
-                <span className="text-[10px]">▼</span>
-              </button>
-              {menuOpen === "count" && (
-                <div className="absolute z-15 mt-1 bg-white border shadow-md w-28">
-                  {["10", "20", "50", "100"].map((count) => (
-                    <button
-                      key={count}
-                      onClick={() => {
-                        console.log("Count:", count);
-                        setMenuOpen(null);
-                      }}
-                      className="block w-full text-left px-3 py-2 text-sm hover:bg-gray-100"
-                    >
-                      {count}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
+              {/* Modal Body */}
+              <div className="p-6 text-center space-y-6">
+                <p className="text-gray-700 text-sm">
+                  Please select your preferred option to start your company, indicating whether it will be GST-registered or non-GST-registered.
+                </p>
 
-            {/* Export Dropdown */}
-            <div className="relative">
-              <button
-                onClick={() => setMenuOpen(menuOpen === "export" ? null : "export")}
-                className="text-sm px-3 py-1  bg-white hover:bg-gray-100 text-gray-700 flex items-center gap-1"
-              >
-                Export
-                <span className="text-[10px]">▼</span>
-              </button>
-              {menuOpen === "export" && (
-                <div className="absolute z-10 mt-1 bg-white border w-28">
-                  {["Copy", "CSV", "PDF", "Excel"].map((opt) => (
-                    <button
-                      key={opt}
-                      onClick={() => {
-                        console.log("Export:", opt);
-                        setMenuOpen(null);
-                      }}
-                      className="block w-full text-left px-3 py-2 text-sm hover:bg-gray-100"
-                    >
-                      {opt}
-                    </button>
-                  ))}
+                {/* Buttons */}
+                <div className="flex flex-col items-center gap-1">
+                  <button
+                    onClick={() => setShowPopup(true)}
+                    className="border border-[#007F5F] text-[#007F5F] w-[242px] h-[50px] rounded px-[20px] py-[13px] text-sm font-medium hover:bg-[#43916F] hover:text-white transition"
+                  >
+                    WITH GST
+                  </button>
+
+                  <button
+                    className="border border-[#007F5F] text-[#007F5F] w-[242px] h-[50px] rounded px-[20px] py-[13px] text-sm font-medium hover:bg-[#43916F] transition"
+                  >
+                    NON - GST
+                  </button>
+
+                  {/* Popup for GST Input */}
+                  {showPopup && (
+                    <div className="mt-4 w-[300px] bg-white border border-gray-300 rounded-lg shadow-lg p-4">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">GSTIN</label>
+                      <input
+                        type="text"
+                        className="w-full border border-border  px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#007F5F]"
+                      />
+                      <label className="font-normal text-[12px] leading-[100%] tracking-[0%] p-1">
+                        Enter your 15 digit GSTIN Number
+                      </label>
+
+                      <div className="flex justify-end gap-2 mt-2">
+                        <button
+                          onClick={() => setShowPopup(false)}
+                          className="px-8 py-2 text-sm bg-[#007F5F] text-white  hover:bg-[#43916F] transition"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          onClick={() => {
+                            alert("GSTIN Submitted!");
+                            setShowPopup(false);
+                          }}
+                          className="px-8 py-2 text-sm bg-[#007F5F] text-white hover:bg-[#43916F] transition"
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
-              )}
+              </div>
             </div>
           </div>
-
-          {/* Search and Sort Section */}
-          <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto ">
-            <div className="flex items-center w-full sm:w-64 px-2 py-1 border-0 border-r-1 border-r-border p-2" >
-              <input
-                type="text"
-                placeholder="Search..."
-                className=""
-              />
-              <IoSearch className="w-5 h-5 text-2xl" />
-            </div>
-
-            {/* Sort Dropdown */}
-            <div className="relative">
-              <button
-                onClick={() => setMenuOpen(menuOpen === "sort" ? null : "sort")}
-                className="text-sm px-3 py-1  bg-white hover:bg-gray-100 text-gray-700 flex items-center gap-1"
-              >
-                Sort By
-                <span className="text-[10px]">▼</span>
-              </button>
-              {menuOpen === "sort" && (
-                <div className="absolute z-15  bg-white  w-36">
-                  {["Created Date", "Financial Year", "A to Z"].map((sort) => (
-                    <button
-                      key={sort}
-                      onClick={() => {
-                        console.log("Sort:", sort);
-                        setMenuOpen(null);
-                      }}
-                      className="block w-full text-left px-3 py-2 text-sm hover:bg-gray-100"
-                    >
-                      {sort}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
+        )}
 
         {/* Table Section */}
-        <div className="">
+        <div className="p-4">
           <table className="min-w-full text-sm text-left text-gray-700 border border-border">
             <thead className="bg-emerald-100 text-gray-900 uppercase text-xs font-semibold">
               <tr>
@@ -169,14 +149,14 @@ const SelectCompany = () => {
                   className={`border-t border-emerald-100 hover:bg-emerald-50 transition ${index % 2 === 0 ? "bg-white" : "bg-gray-50"}`}
                 >
                   <td className="px-4 py-2 border-r border-emerald-100">{company.id}</td>
-                  <td className="px-4 py-2 border-r border-emerald-100 text-[#007F5F] font-semibold cursor-pointer ">
+                  <td className="px-4 py-2 border-r border-emerald-100 text-[#007F5F] font-semibold cursor-pointer">
                     {company.name}
                   </td>
                   <td className="px-4 py-2 border-r border-emerald-100">{company.created}</td>
                   <td className="px-4 py-2 border-r border-emerald-100">{company.contact}</td>
                   <td className="px-4 py-2 border-r border-emerald-100">{company.address}</td>
                   <td
-                    className="px-4 py-2 border-r border-emerald-100 text-[#007F5F] font-semibold cursor-pointer "
+                    className="px-4 py-2 border-r border-emerald-100 text-[#007F5F] font-semibold cursor-pointer"
                     onClick={() => router.push("/dashboard")}
                   >
                     Open Company
@@ -215,10 +195,9 @@ const SelectCompany = () => {
           </table>
         </div>
 
-        {/* Footer Section */}
-        <div className="flex flex-col sm:flex-row justify-between items-center bg-white p-3 border-t border-border mt-30 mb-2 text-sm text-black font-bold">
+        {/* Footer */}
+        <div className="flex flex-col sm:flex-row justify-between items-center bg-white p-3 border-t border-border text-sm text-black font-bold">
           <p>Showing 1–8 of 20 results</p>
-
           <div className="flex items-center space-x-3">
             <button className="text-black font-bold hover:text-green-700">PREVIOUS</button>
             <div className="flex space-x-1">
