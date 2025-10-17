@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { IoNotificationsSharp } from "react-icons/io5";
 import logo from "@/img/Logo.png";
 import profile from "@/img/profile.png";
 import { useState, useRef, useEffect } from "react";
+import { FaBell } from "react-icons/fa";
 
 const Navbar1 = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -42,7 +42,7 @@ const Navbar1 = () => {
         {/* Right side: Notification + Profile */}
         <div className="flex items-center space-x-4 relative">
           <button className="relative text-gray-600 hover:text-green-700 text-2xl">
-            <IoNotificationsSharp />
+          <FaBell />
             <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-none"></span>
           </button>
 

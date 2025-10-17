@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { LuMenu } from "react-icons/lu";
-import { IoCloseCircleOutline, IoSearch } from "react-icons/io5";
+import { IoCloseCircleOutline } from "react-icons/io5";
 
 const companies = [
   { id: 106, name: "ACE INTERNATIONAL", created: "01-09-2023", contact: "985 789 5487", address: "123 Main Street, Anytown" },
@@ -55,7 +55,7 @@ const SelectCompany = () => {
           </div>
         </div>
 
-        {/* Modal (Popup) */}
+        {/* ✅ Modal (Create Company Popup) */}
         {showModal && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
             <div className="bg-white rounded shadow-lg w-[90%] sm:w-[500px]">
@@ -71,65 +71,73 @@ const SelectCompany = () => {
               </div>
 
               {/* Modal Body */}
-              <div className="p-6 text-center space-y-6">
+              <div className="p-6 text-center space-y-2">
                 <p className="text-gray-700 text-sm">
                   Please select your preferred option to start your company, indicating whether it will be GST-registered or non-GST-registered.
                 </p>
 
-                {/* Buttons */}
-                <div className="flex flex-col items-center gap-1">
-                  <button
-                    onClick={() => setShowPopup(true)}
-                    className="border border-[#007F5F] text-[#007F5F] w-[242px] h-[50px] rounded px-[20px] py-[13px] text-sm font-medium hover:bg-[#43916F] hover:text-white transition"
-                  >
-                    WITH GST
-                  </button>
+                {/* Buttons + Popup Section */}
+                <div className="flex flex-col items-center justify-center mt-[30px]">
+                {/* Buttons Row */}
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative">
+                    {/* WITH GST Button */}
+                    <button
+                      onClick={() => setShowPopup(!showPopup)}
+                      className="border border-[#007F5F] text-[#007F5F] w-[200px] h-[40px] text-sm font-medium rounded-[2px] hover:bg-[#43916F] hover:text-white transition"
+                    >
+                      WITH GST
+                    </button>
 
-                  <button
-                    className="border border-[#007F5F] text-[#007F5F] w-[242px] h-[50px] rounded px-[20px] py-[13px] text-sm font-medium hover:bg-[#43916F] transition"
-                  >
-                    NON - GST
-                  </button>
+                    {/* NON-GST Button */}
+                    <button
+                      className="border border-[#007F5F] text-[#007F5F] w-[200px] h-[40px] text-sm font-medium rounded-[2px] hover:bg-[#43916F] hover:text-white transition"
+                    >
+                      NON - GST
+                    </button>
 
-                  {/* Popup for GST Input */}
-                  {showPopup && (
-                    <div className="mt-4 w-[300px] bg-white border border-gray-300 rounded-lg shadow-lg p-4">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">GSTIN</label>
-                      <input
-                        type="text"
-                        className="w-full border border-border  px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#007F5F]"
-                      />
-                      <label className="font-normal text-[12px] leading-[100%] tracking-[0%] p-1">
-                        Enter your 15 digit GSTIN Number
-                      </label>
+                    {/* Popup (Below WITH GST Button) */}
+                    {showPopup && (
+                      <div className="absolute top-[110%] left-20px w-[90%] sm:w-[500px] bg-white border mt-5 p-5 z-10 transition-all duration-300">
+                        <h2 className="text-lg font-semibold text-gray-800 mb-3 text-left px-12">GSTIN</h2>
 
-                      <div className="flex justify-end gap-2 mt-2">
-                        <button
-                          onClick={() => setShowPopup(false)}
-                          className="px-8 py-2 text-sm bg-[#007F5F] text-white  hover:bg-[#43916F] transition"
-                        >
-                          Cancel
-                        </button>
-                        <button
-                          onClick={() => {
-                            alert("GSTIN Submitted!");
-                            setShowPopup(false);
-                          }}
-                          className="px-8 py-2 text-sm bg-[#007F5F] text-white hover:bg-[#43916F] transition"
-                        >
-                          Submit
-                        </button>
+                        <input
+                          type="text"
+                          className=" border border-border px-25 py-2 text-sm "
+                        />
+
+                        <p className="text-[12px] text-gray-600 mb-4 text-left px-12">
+                          Enter your 15 digit GSTIN Number
+                        </p>
+
+                        <div className="flex justify-center gap-3">
+                          <button
+                            onClick={() => setShowPopup(false)}
+                            className="px-6 py-2 text-sm bg-[#105F62] text-white rounded hover:bg-[#43916F] transition"
+                          >
+                            Cancel
+                          </button>
+
+                          <button
+                            onClick={() => {
+                              alert("GSTIN Submitted!");
+                              setShowPopup(false);
+                            }}
+                            className="px-6 py-2 text-sm bg-[#105F62] text-white rounded hover:bg-[#43916F] transition"
+                          >
+                            Submit
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         )}
 
-        {/* Table Section */}
-        <div className="p-4">
+        {/* ✅ Table Section */}
+        <div className="">
           <table className="min-w-full text-sm text-left text-gray-700 border border-border">
             <thead className="bg-emerald-100 text-gray-900 uppercase text-xs font-semibold">
               <tr>
@@ -195,8 +203,8 @@ const SelectCompany = () => {
           </table>
         </div>
 
-        {/* Footer */}
-        <div className="flex flex-col sm:flex-row justify-between items-center bg-white p-3 border-t border-border text-sm text-black font-bold">
+        {/* ✅ Footer Section */}
+        <div className="flex flex-col sm:flex-row justify-between items-center bg-white p-3 mt-50 border-t border-border text-sm text-black font-bold">
           <p>Showing 1–8 of 20 results</p>
           <div className="flex items-center space-x-3">
             <button className="text-black font-bold hover:text-green-700">PREVIOUS</button>
