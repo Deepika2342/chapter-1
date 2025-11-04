@@ -1,15 +1,22 @@
 "use client";
+
+import Image from "next/image";
 import { useState } from "react";
+import CancelChanges from "@/img/CancelChanges.png";
+
 
 const CreateCompany = () => {
   const [gstEnabled, setGstEnabled] = useState(true);
   const [tdsEnabled, setTdsEnabled] = useState(true);
+  const [showImage, setShowImage] = useState(false);
+
+
 
   return (
-    <div className="min-h-screen bg-[#E0F4EC] flex justify-center items-start py-2 px-1">
-      <div className="bg-white w-full max-w-5xl shadow-md rounded-sm border border-gray-200">
+    <div className="w-full bg-[#E0F4EC] flex justify-evenly items-start py-4 px-2">
+      <div className="bg-white w-full max-w-8xl shadow-md rounded-none border border-gray-200">
         {/* Header */}
-        <div className="flex justify-between items-center border-b-4 border-[#007F5F] px-5 py-3">
+        <div className="flex justify-between items-center border-b-1 border-border px-1 py-1">
           <div>
             <h2 className="text-xl font-bold text-gray-800">Create Company</h2>
             <p className="text-sm text-[#007F5F] font-light">
@@ -18,9 +25,16 @@ const CreateCompany = () => {
             </p>
           </div>
           <div className="flex gap-3">
-            <button className="px-5 py-2 bg-[#105F62] text-white text-sm transition">
+            <button
+              className="px-5 py-2 bg-[#105F62] text-white text-sm transition"
+              onClick={() => setShowImage(false)}
+            >
               CANCEL
             </button>
+
+            {showImage && (
+              <Image src={CancelChanges} alt="Cancel Image" className="w-28 h-30 object-cover border border-[#C8E5E3]" />
+            )}
             <button className="px-5 py-2 bg-[#105F62] text-white text-sm transition">
               SUBMIT
             </button>
@@ -39,8 +53,9 @@ const CreateCompany = () => {
                 <input
                   type="text"
                   className="w-full border border-border px-3 py-2"
-                  placeholder="ABC Ltd"
+                  placeholder="ABC Ltd."
                 />
+
               </div>
               <div>
                 <label className="block text-sm font-semibold mb-1">
@@ -49,11 +64,11 @@ const CreateCompany = () => {
                 <input
                   type="text"
                   className="w-full border border-border px-3 py-2"
-                  placeholder="ABC"
+                  placeholder="ABC Ltd."
                 />
               </div>
               <div>
-                <label className="block text-sm font-semibold mb-1">
+                <label className="block text-sm font-semibold mb-1 ">
                   Company Type *
                 </label>
                 <select className="w-full border border-border px-3 py-2">
@@ -63,6 +78,8 @@ const CreateCompany = () => {
                   <option>Proprietorship</option>
                 </select>
               </div>
+
+
               <div>
                 <label className="block text-sm font-semibold mb-1">
                   Business Type*
@@ -91,8 +108,8 @@ const CreateCompany = () => {
                         [&::-webkit-calendar-picker-indicator]:rounded-none
                         [&::-webkit-calendar-picker-indicator]:cursor-pointer
                         [&::-webkit-calendar-picker-indicator]:filter-invert"
-                    />
-                  
+                  />
+
                   <input
                     type="date"
                     placeholder="To"
@@ -102,7 +119,7 @@ const CreateCompany = () => {
                         [&::-webkit-calendar-picker-indicator]:rounded-none
                         [&::-webkit-calendar-picker-indicator]:cursor-pointer
                         [&::-webkit-calendar-picker-indicator]:filter-invert"
-                    />
+                  />
                 </div>
               </div>
             </div>
@@ -121,7 +138,7 @@ const CreateCompany = () => {
                 <input
                   type="text"
                   className="w-full border border-border px-3 py-2"
-                  placeholder="John Doe"
+                  placeholder="Abcd"
                 />
               </div>
               <div>
@@ -131,7 +148,7 @@ const CreateCompany = () => {
                 <input
                   type="text"
                   className="w-full border border-border px-3 py-2"
-                  placeholder="Director"
+                  placeholder="Abcd"
                 />
               </div>
               <div>
@@ -174,6 +191,7 @@ const CreateCompany = () => {
                 />
               </div>
               <div>
+
                 <label className="block text-sm font-semibold mb-1">
                   State *
                 </label>
@@ -232,14 +250,12 @@ const CreateCompany = () => {
                 </span>
                 <button
                   onClick={() => setGstEnabled(!gstEnabled)}
-                  className={`w-11 h-6 flex items-center rounded-full p-[2px] transition-colors duration-300 ${
-                    gstEnabled ? "bg-[#1F8F73]" : "bg-gray-300"
-                  }`}
+                  className={`w-11 h-6 flex items-center rounded-full p-[2px] transition-colors duration-300 ${gstEnabled ? "bg-[#1F8F73]" : "bg-gray-300"
+                    }`}
                 >
                   <div
-                    className={`w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-300 ${
-                      gstEnabled ? "translate-x-5" : "translate-x-0"
-                    }`}
+                    className={`w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-300 ${gstEnabled ? "translate-x-5" : "translate-x-0"
+                      }`}
                   />
                 </button>
               </div>
@@ -278,7 +294,7 @@ const CreateCompany = () => {
                     </label>
                     <div className="relative">
                       <select className="appearance-none border border-[#C8E5E3] px-3 py-2 w-full rounded-none text-sm focus:outline-none focus:ring-1 focus:ring-[#1F8F73] bg-white">
-                        
+
                         <option>Regular</option>
                         <option>Composition</option>
                         <option>Regular-SEZ</option>
@@ -315,14 +331,12 @@ const CreateCompany = () => {
                 </span>
                 <button
                   onClick={() => setTdsEnabled(!tdsEnabled)}
-                  className={`w-11 h-6 flex items-center rounded-full p-[2px] transition-colors duration-300 ${
-                    tdsEnabled ? "bg-[#1F8F73]" : "bg-gray-300"
-                  }`}
+                  className={`w-11 h-6 flex items-center rounded-full p-[2px] transition-colors duration-300 ${tdsEnabled ? "bg-[#1F8F73]" : "bg-gray-300"
+                    }`}
                 >
                   <div
-                    className={`w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-300 ${
-                      tdsEnabled ? "translate-x-5" : "translate-x-0"
-                    }`}
+                    className={`w-5 h-5 bg-white rounded-full    shadow-md transform transition-transform duration-300 ${tdsEnabled ? "translate-x-5" : "translate-x-0"
+                      }`}
                   />
                 </button>
               </div>
@@ -336,18 +350,18 @@ const CreateCompany = () => {
                     <input
                       type="text"
                       placeholder="24ASDF2341A5Z1L"
-                      className="border border-[#C8E5E3] px-3 py-2 w-full rounded-sm focus:outline-none focus:ring-1 focus:ring-[#1F8F73] text-sm"
+                      className="border border-border px-3 py-2 w-full rounded-none focus:outline-none focus:ring-1 focus:ring-[#1F8F73] text-sm"
                     />
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium mb-1">
-                      Percentage*
+                      Percentage *
                     </label>
                     <input
                       type="text"
                       placeholder="5%"
-                      className="border border-[#C8E5E3] px-3 py-2 w-full rounded-sm focus:outline-none focus:ring-1 focus:ring-[#1F8F73] text-sm"
+                      className="border border-border px-3 py-2 w-full rounded-none focus:outline-none focus:ring-1 focus:ring-[#1F8F73] text-sm"
                     />
                   </div>
                 </div>
@@ -356,7 +370,7 @@ const CreateCompany = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
