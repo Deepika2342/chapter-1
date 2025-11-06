@@ -2,13 +2,15 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import CancelChanges from "@/img/CancelChanges.png";
+import CancelChange from "@/img/CancelChange.png";
 
 
 const CreateCompany = () => {
-  const [gstEnabled, setGstEnabled] = useState(true);
-  const [tdsEnabled, setTdsEnabled] = useState(true);
+  const [gstEnabled, setGstEnabled] = useState(false);
+  const [tdsEnabled, setTdsEnabled] = useState(false);
   const [showImage, setShowImage] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+
 
 
 
@@ -25,21 +27,70 @@ const CreateCompany = () => {
             </p>
           </div>
           <div className="flex gap-3">
+            {/* ✅ CANCEL Button */}
             <button
               className="px-5 py-2 bg-[#105F62] text-white text-sm transition"
-              onClick={() => setShowImage(false)}
+              onClick={() => setShowPopup(true)} // ✅ Show popup when clicked
             >
               CANCEL
             </button>
 
-            {showImage && (
-              <Image src={CancelChanges} alt="Cancel Image" className="w-28 h-30 object-cover border border-[#C8E5E3]" />
+            {/* Popup */}
+            {showPopup && (
+              <div className="fixed inset-0 flex items-center justify-center bg-black/25 z-50">
+                <div
+                  className="rounded-none shadow-lg flex flex-col items-center text-center overflow-hidden"
+                  style={{ width: "350px", height: "340px" }}
+                >
+                  {/* Top Green Section */}
+                  <div className="bg-border w-full flex justify-center items-center py-6">
+                    <Image
+                      src={CancelChange}
+                      alt="Cancel Changes"
+                      width={150}
+                      height={150}
+                      className="mx-auto"
+                    />
+                  </div>
+
+                  {/* Bottom White Section */}
+                  <div className="bg-white w-full flex flex-col items-center text-center p-2 flex-grow">
+                    <h1 className="text-lg font-bold text-[#060808] mb-2">
+                      Cancel Changes!
+                    </h1>
+                    <p className="text-xs text-gray-700 mb-6 px-4">
+                      Leaving this page will delete all unsaved changes.
+                    </p>
+
+                    <div className="flex justify-center gap-4">
+                      <button
+                        onClick={() => {
+                          alert("Changes Cancelled!");
+                          setShowPopup(false);
+                        }}
+                        className="bg-[#0C6663] text-white px-10 py-2 text-sm"
+                      >
+                        YES
+                      </button>
+                      <button
+                        onClick={() => setShowPopup(false)}
+                        className="bg-[#0C6663] text-white px-10 py-2 text-sm"
+                      >
+                        NO
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             )}
+
+            {/* SUBMIT Button */}
             <button className="px-5 py-2 bg-[#105F62] text-white text-sm transition">
               SUBMIT
             </button>
           </div>
         </div>
+
 
         {/* Form Body */}
         <div className="p-6 space-y-6 text-[#003C2F]">
@@ -371,6 +422,7 @@ const CreateCompany = () => {
         </div>
       </div>
     </div >
+    
   );
 };
 
