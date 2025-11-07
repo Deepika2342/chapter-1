@@ -11,6 +11,7 @@ const EditCompany = () => {
     const [tdsEnabled, setTdsEnabled] = useState(false);
     const [showImage, setShowImage] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
+    const [file, setFile] = useState(null);
 
     const files = [
         { name: "Get Certificate.pdf", size: "978Kb" },
@@ -18,12 +19,9 @@ const EditCompany = () => {
         { name: "Get Certificate.pdf", size: "978Kb" },
     ];
 
-    const [file, setFile] = useState(null);
-
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
     };
-
 
     return (
         <div className="w-full bg-[#E0F4EC] flex justify-evenly items-start py-4 px-2">
@@ -34,7 +32,7 @@ const EditCompany = () => {
                         <h2 className="text-xl font-bold text-gray-800">Edit Company</h2>
                         <p className="text-sm text-[#007F5F] font-light">
                             Accounting Books / Select Company /{" "}
-                            <span className="font-semibold">Create Company</span>
+                            <span className="font-semibold">Edit Company</span>
                         </p>
                     </div>
                     <div className="flex gap-3">
@@ -165,7 +163,6 @@ const EditCompany = () => {
                                         className="border border-border px-3 py-2 w-full rounded-none text-sm
                     [&::-webkit-calendar-picker-indicator]:bg-[#0C6663]
                     [&::-webkit-calendar-picker-indicator]:p-1
-                    [&::-webkit-calendar-picker-indicator]:rounded-none
                     [&::-webkit-calendar-picker-indicator]:cursor-pointer
                     [&::-webkit-calendar-picker-indicator]:filter-invert"
                                     />
@@ -174,7 +171,6 @@ const EditCompany = () => {
                                         className="border border-border px-3 py-2 w-full rounded-none text-sm
                     [&::-webkit-calendar-picker-indicator]:bg-[#0C6663]
                     [&::-webkit-calendar-picker-indicator]:p-1
-                    [&::-webkit-calendar-picker-indicator]:rounded-none
                     [&::-webkit-calendar-picker-indicator]:cursor-pointer
                     [&::-webkit-calendar-picker-indicator]:filter-invert"
                                     />
@@ -232,7 +228,7 @@ const EditCompany = () => {
                         </div>
                     </div>
 
-                    {/* Section 3 - Address */}
+                    {/* Address Section */}
                     <div>
                         <h3 className="font-semibold text-[#43916F] pb-3 mb-1">
                             Company Address
@@ -249,10 +245,7 @@ const EditCompany = () => {
                                 />
                             </div>
                             <div>
-
-                                <label className="block text-sm font-semibold mb-1">
-                                    State *
-                                </label>
+                                <label className="block text-sm font-semibold mb-1">State *</label>
                                 <select className="w-full border border-border px-3 py-2">
                                     <option>Select</option>
                                     <option>Maharashtra</option>
@@ -261,9 +254,7 @@ const EditCompany = () => {
                                 </select>
                             </div>
                             <div>
-                                <label className="block text-sm font-semibold mb-1">
-                                    City *
-                                </label>
+                                <label className="block text-sm font-semibold mb-1">City *</label>
                                 <select className="w-full border border-border px-3 py-2">
                                     <option>Select</option>
                                     <option>Mumbai</option>
@@ -275,9 +266,7 @@ const EditCompany = () => {
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
                             <div>
-                                <label className="block text-sm font-semibold mb-1">
-                                    Country *
-                                </label>
+                                <label className="block text-sm font-semibold mb-1">Country *</label>
                                 <input
                                     type="text"
                                     className="w-full border border-border px-3 py-2"
@@ -286,9 +275,7 @@ const EditCompany = () => {
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-semibold mb-1">
-                                    PIN Code *
-                                </label>
+                                <label className="block text-sm font-semibold mb-1">PIN Code *</label>
                                 <input
                                     type="text"
                                     className="w-full border border-border px-3 py-2"
@@ -298,285 +285,63 @@ const EditCompany = () => {
                         </div>
                     </div>
 
-                    {/* GST Section */}
-                    <div className="space-y-6">
-                        <div className="space-y-3">
-                            <div className="flex items-center justify-between">
-                                <span className="font-semibold">
-                                    Enable Goods and Service Tax (GST)
-                                </span>
-                                <button
-                                    onClick={() => setGstEnabled(!gstEnabled)}
-                                    className={`w-11 h-6 flex items-center rounded-full p-[2px] transition-colors duration-300 ${gstEnabled ? "bg-[#1F8F73]" : "bg-gray-300"
-                                        }`}
+                    {/* Add Company Logo/Signature */}
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        {["Attachment", "Trade Logo", "Sign Caption"].map((label, i) => (
+                            <div key={i}>
+                                <label className="block text-sm font-semibold mb-2 text-gray-800">
+                                    {label}
+                                </label>
+                                <label
+                                    htmlFor={`${label.toLowerCase().replace(" ", "")}File`}
+                                    className="border-2 border-border rounded-none  flex flex-col items-center justify-center h-28 cursor-pointer hover:bg-blue-50 transition"
                                 >
-                                    <div
-                                        className={`w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-300 ${gstEnabled ? "translate-x-5" : "translate-x-0"
-                                            }`}
+                                    <FiUploadCloud className="text-teal-800 w-6 h-6 mb-1" />
+                                    <p className="text-gray-700 text-xs text-center px-2">
+                                        Drage and drop a file here or click                                    </p>
+                                    <input
+                                        id={`${label.toLowerCase().replace(" ", "")}File`}
+                                        type="file"
+                                        className="hidden"
+                                        onChange={handleFileChange}
                                     />
-                                </button>
+                                </label>
+                                {file && (
+                                    <p className="mt-1 text-xs text-green-700 truncate">
+                                        Selected: <span className="font-medium">{file.name}</span>
+                                    </p>
+                                )}
                             </div>
-
-                            {gstEnabled && (
-                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                    <div>
-                                        <label className="block text-sm font-medium mb-1">
-                                            GST Number*
-                                        </label>
-                                        <input
-                                            type="text"
-                                            placeholder="24ASDF2341A5Z1L"
-                                            className="border border-border px-3 py-2 w-full rounded-none text-sm"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium mb-1">
-                                            GST Registration Date*
-                                        </label>
-                                        <input
-                                            type="date"
-                                            className="border border-border px-3 py-2 w-full rounded-none text-sm"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium mb-1">
-                                            Registration Type*
-                                        </label>
-                                        <select className="border border-[#C8E5E3] px-3 py-2 w-full rounded-none text-sm bg-white">
-                                            <option>Regular</option>
-                                            <option>Composition</option>
-                                            <option>Regular-SEZ</option>
-                                            <option>Unregistered</option>
-                                            <option>Exports</option>
-                                            <option>Ecommerce</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
+                        ))}
                     </div>
 
-                    {/* TDS Section */}
-                    <div className="border-t border-[#C8E5E3] pt-6 space-y-3">
-                        <div className="flex items-center justify-between">
-                            <span className="font-semibold">
-                                Enable Tax Deducted at Source (TDS)
-                            </span>
-                            <button
-                                onClick={() => setTdsEnabled(!tdsEnabled)}
-                                className={`w-11 h-6 flex items-center rounded-full p-[2px] transition-colors duration-300 ${tdsEnabled ? "bg-[#1F8F73]" : "bg-gray-300"
-                                    }`}
-                            >
+                    {/* Certificate List */}
+                    <div className="w-full bg-white p-4 rounded-none">
+                        <h2 className="text-sm font-semibold mb-3 text-gray-800">
+                            Selected Attachment
+                        </h2>
+                        <div className="flex flex-wrap gap-4">
+                            {files.map((file, index) => (
                                 <div
-                                    className={`w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-300 ${tdsEnabled ? "translate-x-5" : "translate-x-0"
-                                        }`}
-                                />
-                            </button>
-                        </div>
-
-                        {tdsEnabled && (
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div>
-                                    <label className="block text-sm font-medium mb-1">
-                                        TAN Number*
-                                    </label>
-                                    <input
-                                        type="text"
-                                        placeholder="ABCDE1234F"
-                                        className="border border-border px-3 py-2 w-full rounded-none text-sm"
-                                    />
+                                    key={index}
+                                    className="flex items-center border border-border bg-white rounded-none px-3 py-2 shadow-sm w-56"
+                                >
+                                    <div className="flex items-center gap-2 flex-1">
+                                        <FaFilePdf className="text-green-700 w-8 h-8" />
+                                        <div className="flex flex-col">
+                                            <span className="text-sm font-medium text-gray-800">
+                                                {file.name}
+                                            </span>
+                                            <span className="text-xs text-gray-500">{file.size}</span>
+                                        </div>
+                                    </div>
+                                    <button className="ml-2 text-green-700 hover:text-red-600 transition">
+                                        <FiTrash2 className="w-5 h-5" />
+                                    </button>
                                 </div>
-                                <div>
-                                    <label className="block text-sm font-medium mb-1">
-                                        Percentage *
-                                    </label>
-                                    <input
-                                        type="text"
-                                        placeholder="5%"
-                                        className="border border-border px-3 py-2 w-full rounded-none text-sm"
-                                    />
-                                </div>
-                            </div>
-                        )}
-                    </div>
-
-                    {/* Other Certificates*/}
-                    <div className="mt-8">
-                        <p className="font-semibold text-[#43916F] mb-5">Other Certificates</p>
-                        <div className="grid grid-cols-2 gap-12 text-sm">
-                            <div>
-                                <label className="block text-sm font-semibold mb-1">
-                                    CRN Number
-                                </label>
-                                <input
-                                    type="text"
-                                    className="w-full border border-border px-3 py-2"
-                                    placeholder="24asdf2613as1zl"
-                                />
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-semibold mb-1">
-                                    CIN Number
-                                </label>
-                                <input
-                                    type="text"
-                                    className="w-full border border-border px-3 py-2"
-                                    placeholder="24asdf2613as1zl"
-                                />
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-semibold mb-1">
-                                    IEC Number
-                                </label>
-                                <input
-                                    type="text"
-                                    className="w-full border border-border px-3 py-2"
-                                    placeholder="24asdf2613as1zl"
-                                />
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-semibold mb-1">
-                                    MSME Number:
-                                </label>
-                                <input
-                                    type="text"
-                                    className="w-full border border-border px-3 py-2"
-                                    placeholder="24asdf2613as1zl"
-                                />
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-semibold mb-1">
-                                    LUT Bond Number:                                </label>
-                                <input
-                                    type="text"
-                                    className="w-full border border-border px-3 py-2"
-                                    placeholder="24asdf2613as1zl"
-                                />
-                            </div>
+                            ))}
                         </div>
                     </div>
-
-
-
-
-                    {/* Add Comapany Logo/Signature*/}
-                    <div className="w-full">
-                        <label className="block text-sm font-semibold mb-2 text-gray-800">
-                            Attachment
-                        </label>
-
-                        <label
-                            htmlFor="fileInput"
-                            className="border-2 border-blue-500 border-dashed rounded-md flex flex-col items-center justify-center py-8 cursor-pointer hover:bg-blue-50 transition"
-                        >
-                            <FiUploadCloud className="text-teal-800 w-8 h-8 mb-2" />
-                            <p className="text-gray-700 text-sm">
-                                Drag and drop a file here or click
-                            </p>
-                            <input
-                                id="fileInput"
-                                type="file"
-                                className="hidden"
-                                onChange={handleFileChange}
-                            />
-                        </label>
-
-                        {file && (
-                            <p className="mt-2 text-sm text-green-700">
-                                Selected file: <span className="font-medium">{file.name}</span>
-                            </p>
-                        )}
-                    </div>
-
-                    <label className="block text-sm font-semibold mb-2 text-gray-800">
-                        Trade Logo
-                    </label>
-                    <label
-                        htmlFor="fileInput"
-                        className="border-2 border-blue-500 border-dashed rounded-md flex flex-col items-center justify-center py-8 cursor-pointer hover:bg-blue-50 transition"
-                    >
-                        <FiUploadCloud className="text-teal-800 w-8 h-8 mb-2" />
-                        <p className="text-gray-700 text-sm">
-                            Drag and drop a file here or click
-                        </p>
-                        <input
-                            id="fileInput"
-                            type="file"
-                            className="hidden"
-                            onChange={handleFileChange}
-                        />
-                    </label>
-
-                    {file && (
-                        <p className="mt-2 text-sm text-green-700">
-                            Selected file: <span className="font-medium">{file.name}</span>
-                        </p>
-                    )}
-                </div>
-
-                <label className="block text-sm font-semibold mb-2 text-gray-800">
-                    Sign Caption
-                </label>
-                <label
-                    htmlFor="fileInput"
-                    className="border-2 border-blue-500 border-dashed rounded-md flex flex-col items-center justify-center py-8 cursor-pointer hover:bg-blue-50 transition"
-                >
-                    <FiUploadCloud className="text-teal-800 w-8 h-8 mb-2" />
-                    <p className="text-gray-700 text-sm">
-                        Drag and drop a file here or click
-                    </p>
-                    <input
-                        id="fileInput"
-                        type="file"
-                        className="hidden"
-                        onChange={handleFileChange}
-                    />
-                </label>
-
-                {file && (
-                    <p className="mt-2 text-sm text-green-700">
-                        Selected file: <span className="font-medium">{file.name}</span>
-                    </p>
-                )}
-            </div>
-
-
-
-
-
-
-
-
-
-            <div className="w-full bg-white p-4 rounded-none">
-                <h2 className="text-sm font-semibold mb-3 text-gray-800">
-                    Selected Attachment
-                </h2>
-
-                <div className="flex flex-wrap gap-4">
-                    {files.map((file, index) => (
-                        <div
-                            key={index}
-                            className="flex items-center border border-border bg-white rounded-none  px-3 py-2 shadow-sm w-56"
-                        >
-                            <div className="flex items-center gap-2 flex-1">
-                                <FaFilePdf className="text-green-700 w-8 h-8" />
-                                <div className="flex flex-col">
-                                    <span className="text-sm font-medium text-gray-800">
-                                        {file.name}
-                                    </span>
-                                    <span className="text-xs text-gray-500">{file.size}</span>
-                                </div>
-                            </div>
-                            <button className="ml-2 text-green-700 hover:text-red-600 transition">
-                                <FiTrash2 className="w-5 h-5" />
-                            </button>
-                        </div>
-                    ))}
                 </div>
             </div>
         </div>
