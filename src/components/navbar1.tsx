@@ -48,7 +48,7 @@ const Navbar1 = () => {
   }, []);
 
   return (
-    <nav className="w-full h-[60px] bg-green-100 border-b border-green-200 px-4 flex items-center justify-between">
+    <nav className="w-full h-[60px] bg-green-100 border-b border-border px-4 flex items-center justify-between">
       {/* Left side: Logo + Company Dropdown */}
       <div className="flex items-center space-x-4">
         <Image
