@@ -37,7 +37,7 @@ const Dashboard = () => {
   ];
 
   const banks = [
-    { name: "ICICI Bank", balance: "₹750" },
+    { name: "ICICI Bank", balance: "₹350" },
     { name: "Bank of Baroda", balance: "₹350" },
     { name: "IDFC Bank", balance: "₹350" },
   ];
@@ -70,7 +70,7 @@ const Dashboard = () => {
         {/* Middle Section */}
         <div className="col-span-2 space-y-4">
           {/* Header */}
-          <div className="bg-white p-4 border rounded shadow-sm">
+          <div className="bg-white p-4 border-border rounded shadow-sm">
             <h2 className="text-xl font-semibold">Dashboard</h2>
             <p className="text-sm text-[#007F5F]">
               Select Company / Klamp Ecommerce / <span className="font-semibold">Dashboard</span>
@@ -86,9 +86,9 @@ const Dashboard = () => {
               </button>
             </div>
             <div className="flex justify-between items-center text-sm mb-4">
-              <div className="flex gap-2">
-                <button className="px-3 py-1 border rounded">SALES</button>
-                <button className="px-3 py-1 border rounded">PURCHASE</button>
+              <div className="flex gap-1 border-border">
+                <button className="px-3 py-1 border rounded-none ">SALES</button>
+                <button className="px-3 py-1 border rounded-none">PURCHASE</button>
               </div>
               <div className="text-right">
                 <p className="text-gray-500">Total Sales</p>
@@ -100,16 +100,16 @@ const Dashboard = () => {
             </div>
             <div className="flex justify-center mt-3 space-x-4 text-xs text-gray-500">
               <div className="flex items-center gap-1">
-                <MdCheckBoxOutlineBlank className="text-gray-500" /> Items Sold
+                <MdCheckBoxOutlineBlank className="text-gray-500 bg-gray-400" /> Items Sold
               </div>
               <div className="flex items-center gap-1">
-                <MdCheckBoxOutlineBlank className="text-green-700" /> Total Profit
+                <MdCheckBoxOutlineBlank className="text-green-700 bg-border" /> Total Profit
               </div>
             </div>
           </div>
 
           {/* Profit & Loss */}
-          <div className="bg-white p-4 border rounded shadow-sm">
+          <div className="bg-white p-4 border-border rounded-none shadow-sm">
             <h3 className="font-semibold mb-2">PROFIT AND LOSS</h3>
             <div className="grid grid-cols-3 gap-4 text-sm">
               <div className="border rounded p-3">
@@ -219,16 +219,14 @@ const Dashboard = () => {
             <h3 className="font-semibold text-sm mb-1">Contact Support</h3>
             <p className="text-sm text-gray-500 mb-4">
               We're happy to help! Contact us anytime, anywhere, on any device.
-            </p>            <div className="flex justify-around text-sm text-gray-700">
+            </p>
+            <div className="flex justify-around text-sm text-gray-700">
               <BiSolidPhoneCall className="text-[#007F5F] cursor-pointer" />
               Call Us
-
               <PiEnvelopeSimpleFill className="text-[#007F5F] cursor-pointer" />
               Email ID
-
               <FaWhatsapp className="text-green-600 cursor-pointer" />
               WhatsApp
-
             </div>
           </div>
         </div>
