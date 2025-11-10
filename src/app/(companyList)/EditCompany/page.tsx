@@ -8,6 +8,7 @@ import { FaFilePdf } from "react-icons/fa";
 
 const EditCompany = () => {
     const [showPopup, setShowPopup] = useState(false);
+console.log(showPopup);
 
     // File state
     const [files, setFiles] = useState<{ [key: string]: File | null }>({
