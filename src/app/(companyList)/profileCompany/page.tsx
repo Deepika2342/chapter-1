@@ -8,7 +8,7 @@ import { FiMenu } from "react-icons/fi";
 import { useState } from "react";
 import { MdAlternateEmail } from "react-icons/md";
 import { BiSolidPhoneCall } from "react-icons/bi";
-import DeleteImg from "@/img/Deleteimg.png";
+import DeleteImg from "@/img/DeleteImg.png";
 
 
 
