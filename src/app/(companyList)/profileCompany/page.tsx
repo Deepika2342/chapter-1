@@ -6,9 +6,9 @@ import { FiFileText } from "react-icons/fi";
 import Signature from "@/img/Signature.png";
 import { FiMenu } from "react-icons/fi";
 import { useState } from "react";
-import DeleteImg from "@/img/deleteimg.png";
 import { MdAlternateEmail } from "react-icons/md";
 import { BiSolidPhoneCall } from "react-icons/bi";
+import DeleteImg from "@/img/Deleteimg.png";
 
 
 
