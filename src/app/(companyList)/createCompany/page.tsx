@@ -6,10 +6,10 @@ import CancelChange from "@/img/CancelChange.png";
 
 
 const CreateCompany = () => {
+  const [showPopup, setShowPopup] = useState(false);
   const [gstEnabled, setGstEnabled] = useState(false);
   const [tdsEnabled, setTdsEnabled] = useState(false);
-  const [showImage, setShowImage] = useState(false);
-  const [showPopup, setShowPopup] = useState(false);
+
 
 
 
@@ -27,10 +27,9 @@ const CreateCompany = () => {
             </p>
           </div>
           <div className="flex gap-3">
-            {/* ✅ CANCEL Button */}
             <button
               className="px-5 py-2 bg-[#105F62] text-white text-sm transition"
-              onClick={() => setShowPopup(true)} // ✅ Show popup when clicked
+              onClick={() => setShowPopup(true)}
             >
               CANCEL
             </button>
@@ -422,7 +421,7 @@ const CreateCompany = () => {
         </div>
       </div>
     </div >
-    
+
   );
 };
 
