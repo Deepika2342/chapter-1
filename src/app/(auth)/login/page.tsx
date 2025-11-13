@@ -2,18 +2,33 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import logo from "@/img/Logo.png"
+import logo from "@/img/Logo.png";
+import { Button } from "@/components/ui/button";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 const LoginPage = () => {
   const router = useRouter();
-  const [pass, setPass] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPass, setShowPass] = useState(false);
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (email === "rohanvaja01@gmail.com" && password === "Rjvaja@1997") {
+      alert("Login successful!");
+      router.push("/selectCompany");
+    } else {
+      alert("Invalid email or password!");
+    }
+  };
+
   return (
     <div className="w-full h-dvh overflow-hidden bg-background flex flex-col">
       <div className="flex flex-col items-center justify-center flex-1">
+        {/* Logo */}
         <div className="text-center mb-6 mt-2">
           <Image
             src={logo}
@@ -23,64 +38,64 @@ const LoginPage = () => {
             quality={100}
             className="object-contain mx-auto"
           />
-         </div>
-
+        </div>
 
         {/* Login Box */}
-        <div className="bg-white w-full max-w-[300px] max-h-[330px] shadow-2xl p-6 text-center  shadow-lg-custom">
+        <div className="bg-white w-full max-w-[300px] max-h-[330px] shadow-2xl p-6 text-center shadow-lg-custom">
           {/* Login Heading */}
-          <h2 className="font-outfit font-bold text-green-light   leading-[100%] tracking-[0%] text-center uppercase">
-            {" "}
-            LOGIN{" "}
+          <h2 className="font-outfit font-bold text-green-light leading-[100%] tracking-[0%] text-center uppercase">
+            LOGIN
           </h2>
 
-          <p className="font-outfit font-light text-[12px] leading-[100%] tracking-[0%] text-center mb-6 bg-darkBg ">
+          <p className="font-outfit font-light text-[12px] leading-[100%] tracking-[0%] text-center mb-6 bg-darkBg">
             Access to our dashboard
           </p>
 
           {/* Login Form */}
-          <form className="flex flex-col  text-left h-[300px] gap-4 m-auto">
+          <form
+            onSubmit={handleLogin}
+            className="flex flex-col text-left h-[300px] gap-4 m-auto"
+          >
+            {/* Email Field */}
             <div>
-              {/* Label */}
               <label className="block font-outfit font-normal text-12 leading-[100%] tracking-[0%] lable-green mb-1">
                 Email Address
               </label>
-
-              {/* Input */}
               <input
                 type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder=""
-                className="w-full font-outfit border-[1px] border-border p-2 focus:outline-none "
+                className="w-full font-outfit border-[1px] border-border p-2 focus:outline-none"
+                required
               />
             </div>
 
-            <div className="relative">
+            {/* Password Field */}
+            <div>
               <label className="block font-outfit font-normal text-12 leading-[100%] tracking-[0%] text-foreground lable-green mb-1">
                 Password
               </label>
-
-              <input
-                
-                type={pass ? "text" : "password"}
-                placeholder=""
-               className="w-full font-outfit border-[1px] border-border p-2 focus:outline-none "
-
-             />
-              {/* Eye Icon */}
-              {pass ? (
-                <FaRegEye
-                  onClick={() => setPass(!pass)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-black cursor-pointer mt-2"
+              <div className="relative">
+                <input
+                  type={showPass ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder=""
+                  className="w-full font-outfit border-[1px] border-border p-2 focus:outline-none"
+                  required
                 />
-              ) : (
-                <FaRegEyeSlash
-                  onClick={() => setPass(!pass)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-black cursor-pointer mt-2"
-                />
-              )}
+                <button
+                  type="button"
+                  onClick={() => setShowPass(!showPass)}
+                  className="absolute right-3 top-2 text-gray-500"
+                >
+                  {showPass ? <FiEyeOff /> : <FiEye />}
+                </button>
+              </div>
             </div>
 
-            {/* Remember Me + Forgot */}
+            {/* Remember Me + Forgot Password */}
             <div className="flex items-center justify-between text-sm mt-2">
               <label className="flex items-center gap-2 font-outfit font-normal text-[16.89px] leading-[100%] tracking-[0%]">
                 <input
@@ -92,31 +107,28 @@ const LoginPage = () => {
 
               <Link
                 href="#"
-                className="font-outfit font-normal text-[12px] leading-[100%] tracking-[0%] hover:underline text:dark-green"
+                className="font-outfit font-normal text-[12px] leading-[100%] tracking-[0%] hover:underline text-dark-green"
               >
-                {" "}
                 Forgot password?
               </Link>
             </div>
 
             {/* Login Button */}
-            {/* Button */}
             <Button
-              onClick={() => router.push("/welcome")}
-              className=" bg-green-btn hover:bg-green-light text-white text-1xl uppercase font-medium rounded-none h-[40px] cursor-pointer"
-              style={{
-                animationDuration: "0ms",
-              }}
+              type="submit"
+              className="bg-green-btn hover:bg-green-light text-white text-1xl uppercase font-medium rounded-none h-[40px] cursor-pointer"
+              style={{ animationDuration: "0ms" }}
             >
               Login
             </Button>
           </form>
         </div>
 
+        {/* Signup Link */}
         <p className="font-outfit font-bold text-[20px] leading-[100%] tracking-[0%] text-center mt-8 mb-7">
           New user?{" "}
-       <Link href="/signup">
-            <span className="text-green-medium cursor-pointer ">Sign Up</span>
+          <Link href="/signup">
+            <span className="text-green-medium cursor-pointer">Sign Up</span>
           </Link>
         </p>
       </div>
