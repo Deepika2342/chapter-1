@@ -15,8 +15,8 @@ const Navbar1 = () => {
   const [selectedCompany, setSelectedCompany] = useState("Klamp Ecommerce Pvt. Ltd.");
   const [selectedYear, setSelectedYear] = useState("2022-23");
 
-  const companyRef = useRef<HTMLDivElement>(null);
-  const profileRef = useRef<HTMLDivElement>(null);
+  const companyRef = useRef(null);
+  const profileRef = useRef(null);
 
   const companies = [
     "Klamp Ecommerce Pvt. Ltd.",
@@ -26,19 +26,12 @@ const Navbar1 = () => {
   ];
   const years = ["2022-23", "2023-24", "2024-25"];
 
-  // Close dropdowns on outside click
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        companyRef.current &&
-        !companyRef.current.contains(event.target as Node)
-      ) {
+    const handleClickOutside = (event) => {
+      if (companyRef.current && !companyRef.current.contains(event.target)) {
         setCompanyDropdownOpen(false);
       }
-      if (
-        profileRef.current &&
-        !profileRef.current.contains(event.target as Node)
-      ) {
+      if (profileRef.current && !profileRef.current.contains(event.target)) {
         setProfileDropdownOpen(false);
       }
       setYearDropdownOpen(false);
@@ -48,47 +41,45 @@ const Navbar1 = () => {
   }, []);
 
   return (
-    <nav className="w-full h-[60px] bg-green-100 border-b border-border px-4 flex items-center justify-between">
+    <nav className="w-full bg-border  border-b border-border px-0 flex items-center justify-between h-[60px]">
       {/* Left side: Logo + Company Dropdown */}
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center gap-4">
+        {/* Logo - hidden on mobile */}
         <Image
           src={logo}
           alt="Chapter Logo"
-          width={173}
-          height={45}
-          quality={100}
-          className="object-contain"
+          width={150}
+          height={40}
+          className="object-contain hidden sm:block"
         />
 
+        {/* Company Dropdown */}
         <div className="relative" ref={companyRef}>
           <button
             onClick={() => setCompanyDropdownOpen(!companyDropdownOpen)}
-            className="flex items-center gap-2 text-black font-semibold text-sm hover:text-[#105F62]"
+            className="flex items-center gap-2 text-sm font-semibold text-gray-800 hover:text-[#105F62]"
           >
             {selectedCompany}
-            <IoMdArrowDropdown className="text-lg text-black" />
+            <IoMdArrowDropdown className="text-lg" />
           </button>
 
           {companyDropdownOpen && (
-            <div className="absolute top-8 left-0 w-96 bg-white border border-border shadow-md rounded-none z-50">
-              <div className="flex items-center justify-between bg-border border-b border-gray-200 px-3 py-2">
-                <span className="text-gray-900 font-semibold text-sm">
-                  {selectedCompany}
-                </span>
+            <div className="absolute top-8 left-0 w-72 sm:w-96 bg-white border border-gray-200 shadow-md rounded-sm z-50">
+              <div className="flex items-center justify-between bg-gray-50 border-b border-gray-200 px-3 py-2">
+                <span className="text-gray-800 font-semibold text-sm">{selectedCompany}</span>
                 <FaSearch className="text-gray-600 text-sm cursor-pointer" />
               </div>
-
-              <ul className="max-h-60 overflow-y-auto">
-                {companies.map((company, index) => (
+              <ul className="max-h-56 overflow-y-auto">
+                {companies.map((company, i) => (
                   <li
-                    key={index}
+                    key={i}
                     onClick={() => {
                       setSelectedCompany(company);
                       setCompanyDropdownOpen(false);
                     }}
-                    className={`px-4 py-2 text-sm cursor-pointer border-b border-border ${company === selectedCompany
-                      ? "bg-[#105F62] font-semibold"
-                      : "hover:bg-border text-gray-700"
+                    className={`px-4 py-2 text-sm cursor-pointer border-b last:border-b-0 ${company === selectedCompany
+                        ? "bg-[#105F62] text-white font-medium"
+                        : "hover:bg-gray-100 text-gray-700"
                       }`}
                   >
                     {company}
@@ -101,7 +92,7 @@ const Navbar1 = () => {
       </div>
 
       {/* Right side */}
-      <div className="flex items-center space-x-6 relative">
+      <div className="flex items-center gap-4 sm:gap-6 relative">
         {/* Year Dropdown */}
         <div className="relative">
           <button
@@ -113,9 +104,9 @@ const Navbar1 = () => {
           </button>
 
           {yearDropdownOpen && (
-            <div className="absolute right-0 mt-1 w-[160px] bg-white border border-gray-200 shadow-md rounded-sm z-50">
+            <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 shadow-md rounded-sm z-50">
               <div
-                onClick={() => alert('Create Year Clicked!')}
+                onClick={() => alert("Create Year Clicked!")}
                 className="px-3 py-2 text-sm font-semibold text-white bg-[#007F5F] cursor-pointer hover:bg-[#046C54]"
               >
                 + Create Year
@@ -128,7 +119,7 @@ const Navbar1 = () => {
                       setSelectedYear(year);
                       setYearDropdownOpen(false);
                     }}
-                    className={`px-3 py-2 text-sm cursor-pointer border-b last:border-b-0 ${selectedYear === year
+                    className={`px-3 py-2 text-sm cursor-pointer ${selectedYear === year
                         ? "bg-green-100 text-gray-900 font-medium"
                         : "hover:bg-green-50 text-gray-700"
                       }`}
@@ -141,15 +132,14 @@ const Navbar1 = () => {
           )}
         </div>
 
-
         {/* Notification */}
-        <button className="relative text-gray-600 hover:text-green-700 text-2xl">
+        <button className="relative text-gray-600 hover:text-[#105F62] text-xl">
           <FaBell />
           <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
         </button>
 
-        {/* Profile */}
-        <div className="relative" ref={profileRef}>
+        {/* Profile*/}
+        <div ref={profileRef} className="relative">
           <button
             onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
             className="w-8 h-8 overflow-hidden border border-gray-300 rounded-full"
@@ -165,12 +155,8 @@ const Navbar1 = () => {
 
           {profileDropdownOpen && (
             <div className="absolute right-0 mt-2 w-32 bg-white shadow-lg rounded border border-gray-200 z-50">
-              <button className="w-full text-left px-4 py-2 hover:bg-gray-100">
-                Settings
-              </button>
-              <button className="w-full text-left px-4 py-2 hover:bg-gray-100">
-                Log Out
-              </button>
+              <button className="w-full text-left px-4 py-2 hover:bg-gray-100">Settings</button>
+              <button className="w-full text-left px-4 py-2 hover:bg-gray-100">Log Out</button>
             </div>
           )}
         </div>
