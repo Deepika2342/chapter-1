@@ -15,8 +15,8 @@ const Navbar1 = () => {
   const [selectedCompany, setSelectedCompany] = useState("Klamp Ecommerce Pvt. Ltd.");
   const [selectedYear, setSelectedYear] = useState("2022-23");
 
-  const companyRef = useRef(null);
-  const profileRef = useRef(null);
+  const companyRef = useRef<HTMLDivElement | null>(null);
+  const profileRef = useRef<HTMLDivElement | null>(null);
 
   const companies = [
     "Klamp Ecommerce Pvt. Ltd.",
@@ -27,21 +27,23 @@ const Navbar1 = () => {
   const years = ["2022-23", "2023-24", "2024-25"];
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (companyRef.current && !companyRef.current.contains(event.target)) {
+    // ✅ FIX: Add proper typing to the event
+    const handleClickOutside = (event: MouseEvent) => {
+      if (companyRef.current && !companyRef.current.contains(event.target as Node)) {
         setCompanyDropdownOpen(false);
       }
-      if (profileRef.current && !profileRef.current.contains(event.target)) {
+      if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
         setProfileDropdownOpen(false);
       }
       setYearDropdownOpen(false);
     };
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
-    <nav className="w-full bg-border  border-b border-border px-0 flex items-center justify-between h-[60px]">
+    <nav className="w-full bg-border border-b border-border px-0 flex items-center justify-between h-[60px]">
       {/* Left side: Logo + Company Dropdown */}
       <div className="flex items-center gap-4">
         {/* Logo - hidden on mobile */}
@@ -138,7 +140,7 @@ const Navbar1 = () => {
           <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
         </button>
 
-        {/* Profile*/}
+        {/* Profile */}
         <div ref={profileRef} className="relative">
           <button
             onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}

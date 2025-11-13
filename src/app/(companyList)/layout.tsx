@@ -1,6 +1,7 @@
 "use client";
+
 import Navbar1 from "@/components/navbar1";
-import React, { useState } from "react";
+import React, { useState, ReactNode } from "react";
 import {
     FiHome,
     FiDatabase,
@@ -17,10 +18,11 @@ import {
 import { FaQuestionCircle } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 
+interface CompanyListLayoutProps {
+    children: ReactNode;
+}
 
-
-
-export default function CompanyListLayout({ children }) {
+export default function CompanyListLayout({ children }: CompanyListLayoutProps) {
     const [active, setActive] = useState("Dashboard");
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const router = useRouter();
@@ -38,13 +40,12 @@ export default function CompanyListLayout({ children }) {
     ];
 
     return (
-        <main className="min-h-screen bg-border flex flex-col relative">
+        <main className="min-h-screen bg-[#E0F4EC] flex flex-col relative">
             {/* Navbar */}
             <div className="flex items-center justify-between px-0 py-0 bg-white border-b border-border shadow-sm">
                 <Navbar1 />
-                {/* Hamburger for mobile */}
                 <button
-                    className="sm:hidden text-[#007F5F] text-2xl"
+                    className="sm:hidden text-[#007F5F] text-2xl mr-3"
                     onClick={() => setSidebarOpen(!sidebarOpen)}
                 >
                     {sidebarOpen ? <FiX /> : <FiMenu />}
@@ -52,10 +53,10 @@ export default function CompanyListLayout({ children }) {
             </div>
 
             <div className="flex flex-1 overflow-hidden">
-                {/* Sidebar */}
+                {/*  Sidebar */}
                 <aside
                     className={`fixed sm:static top-0 left-0 h-full sm:h-auto bg-white border-r border-gray-200 shadow-md z-40 transform transition-transform duration-300 w-56
-          ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} sm:translate-x-0`}
+            ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} sm:translate-x-0`}
                 >
                     <ul className="mt-16 sm:mt-2 space-y-1">
                         {menuItems.map((item) => (
@@ -80,7 +81,6 @@ export default function CompanyListLayout({ children }) {
                     </ul>
                 </aside>
 
-                {/* Overlay for mobile */}
                 {sidebarOpen && (
                     <div
                         className="fixed inset-0 bg-black bg-opacity-30 sm:hidden z-30"
@@ -94,10 +94,12 @@ export default function CompanyListLayout({ children }) {
                 </section>
             </div>
 
-            {/* Footer */}
+            {/*  Footer */}
             <footer className="w-full bg-white border-t border-gray-200 text-sm text-gray-600 px-4 py-3 flex flex-wrap justify-between items-center z-50 fixed bottom-0 left-0">
                 <span className="text-center sm:text-left w-full sm:w-auto mb-2 sm:mb-0">
-                    Copyright © 2024 <span className="font-semibold text-[#007F5F]">Chapter.1</span> — All rights reserved.
+                    Copyright © 2024{" "}
+                    <span className="font-semibold text-[#007F5F]">Chapter.1</span> — All
+                    rights reserved.
                 </span>
                 <div className="flex items-center gap-2 justify-center sm:justify-end w-full sm:w-auto text-[#007F5F] cursor-pointer hover:text-[#005f45] transition-colors">
                     <span>Need help?</span>
