@@ -12,11 +12,15 @@ const Navbar1 = () => {
   const [yearDropdownOpen, setYearDropdownOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
 
-  const [selectedCompany, setSelectedCompany] = useState("Klamp Ecommerce Pvt. Ltd.");
+  const [selectedCompany, setSelectedCompany] = useState(
+    "Klamp Ecommerce Pvt. Ltd."
+  );
   const [selectedYear, setSelectedYear] = useState("2022-23");
 
-  const companyRef = useRef(null);
-  const profileRef = useRef(null);
+  const [searchCompany, setSearchCompany] = useState("");
+
+  const companyRef = useRef<HTMLDivElement | null>(null);
+  const profileRef = useRef<HTMLDivElement | null>(null);
 
   const companies = [
     "Klamp Ecommerce Pvt. Ltd.",
@@ -24,53 +28,81 @@ const Navbar1 = () => {
     "ICICI Prudential Life Insurance Company Ltd",
     "Sun Pharmaceuticals Industries Ltd",
   ];
+
   const years = ["2022-23", "2023-24", "2024-25"];
 
+  // Filter companies based on search
+  const filteredCompanies = companies.filter((company) =>
+    company.toLowerCase().includes(searchCompany.toLowerCase())
+  );
+
+  // FIXED TYPE ERROR
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (companyRef.current && !companyRef.current.contains(event.target)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        companyRef.current &&
+        !companyRef.current.contains(event.target as Node)
+      ) {
         setCompanyDropdownOpen(false);
       }
-      if (profileRef.current && !profileRef.current.contains(event.target)) {
+
+      if (
+        profileRef.current &&
+        !profileRef.current.contains(event.target as Node)
+      ) {
         setProfileDropdownOpen(false);
       }
+
       setYearDropdownOpen(false);
     };
+
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () =>
+      document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
-    <nav className="w-full bg-border  border-b border-border px-0 flex items-center justify-between h-[60px]">
-      {/* Left side: Logo + Company Dropdown */}
-      <div className="flex items-center gap-4">
-        {/* Logo - hidden on mobile */}
+    <nav className="w-full bg-white border-b border-border px-3 flex items-center justify-between h-[60px]">
+
+      {/* LEFT SIDE */}
+      <div className="flex items-center gap-3">
+        {/* Logo visible on mobile */}
         <Image
           src={logo}
           alt="Chapter Logo"
-          width={150}
+          width={120}
           height={40}
-          className="object-contain hidden sm:block"
+          className="object-contain"
         />
 
         {/* Company Dropdown */}
         <div className="relative" ref={companyRef}>
           <button
             onClick={() => setCompanyDropdownOpen(!companyDropdownOpen)}
-            className="flex items-center gap-2 text-sm font-semibold text-gray-800 hover:text-[#105F62]"
+            className="flex items-center gap-1 text-sm font-semibold text-gray-800 max-w-[150px] sm:max-w-none truncate"
           >
             {selectedCompany}
             <IoMdArrowDropdown className="text-lg" />
           </button>
 
           {companyDropdownOpen && (
-            <div className="absolute top-8 left-0 w-72 sm:w-96 bg-white border border-gray-200 shadow-md rounded-sm z-50">
-              <div className="flex items-center justify-between bg-gray-50 border-b border-gray-200 px-3 py-2">
-                <span className="text-gray-800 font-semibold text-sm">{selectedCompany}</span>
-                <FaSearch className="text-gray-600 text-sm cursor-pointer" />
+            <div className="absolute top-10 left-0 w-72 sm:w-96 bg-white border border-gray-200 shadow-md rounded-sm z-50">
+
+              {/* SEARCH BAR */}
+              <div className="flex items-center gap-2 px-3 py-2 bg-gray-50 border-b border-gray-200">
+                <FaSearch className="text-gray-600" />
+                <input
+                  type="text"
+                  placeholder="Search company..."
+                  className="w-full text-sm outline-none"
+                  value={searchCompany}
+                  onChange={(e) => setSearchCompany(e.target.value)}
+                />
               </div>
-              <ul className="max-h-56 overflow-y-auto">
-                {companies.map((company, i) => (
+
+              {/* COMPANY LIST */}
+              <ul className="max-h-60 overflow-y-auto">
+                {filteredCompanies.map((company, i) => (
                   <li
                     key={i}
                     onClick={() => {
@@ -85,29 +117,35 @@ const Navbar1 = () => {
                     {company}
                   </li>
                 ))}
+
+                {filteredCompanies.length === 0 && (
+                  <li className="px-4 py-3 text-gray-500 text-sm text-center">
+                    No company found
+                  </li>
+                )}
               </ul>
             </div>
           )}
         </div>
       </div>
 
-      {/* Right side */}
-      <div className="flex items-center gap-4 sm:gap-6 relative">
-        {/* Year Dropdown */}
+      {/* RIGHT SIDE */}
+      <div className="flex items-center gap-3 sm:gap-6">
+        {/* YEAR DROPDOWN */}
         <div className="relative">
           <button
             onClick={() => setYearDropdownOpen(!yearDropdownOpen)}
-            className="flex items-center gap-1 text-gray-700 font-medium text-sm hover:text-[#105F62]"
+            className="flex items-center gap-1 text-gray-700 font-medium text-sm"
           >
             {selectedYear}
-            <IoMdArrowDropdown className="text-gray-700 text-lg" />
+            <IoMdArrowDropdown className="text-lg" />
           </button>
 
           {yearDropdownOpen && (
             <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 shadow-md rounded-sm z-50">
               <div
                 onClick={() => alert("Create Year Clicked!")}
-                className="px-3 py-2 text-sm font-semibold text-white bg-[#007F5F] cursor-pointer hover:bg-[#046C54]"
+                className="px-3 py-2 text-sm font-semibold text-white bg-[#007F5F] cursor-pointer"
               >
                 + Create Year
               </div>
@@ -132,13 +170,13 @@ const Navbar1 = () => {
           )}
         </div>
 
-        {/* Notification */}
-        <button className="relative text-gray-600 hover:text-[#105F62] text-xl">
+        {/* NOTIFICATION */}
+        <button className="relative text-gray-600 text-xl">
           <FaBell />
           <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
         </button>
 
-        {/* Profile*/}
+        {/* PROFILE DROPDOWN */}
         <div ref={profileRef} className="relative">
           <button
             onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
@@ -154,9 +192,13 @@ const Navbar1 = () => {
           </button>
 
           {profileDropdownOpen && (
-            <div className="absolute right-0 mt-2 w-32 bg-white shadow-lg rounded border border-gray-200 z-50">
-              <button className="w-full text-left px-4 py-2 hover:bg-gray-100">Settings</button>
-              <button className="w-full text-left px-4 py-2 hover:bg-gray-100">Log Out</button>
+            <div className="absolute right-0 mt-2 w-32 bg-white shadow-lg border border-gray-200 rounded-sm z-50">
+              <button className="w-full text-left px-4 py-2 hover:bg-gray-100">
+                Settings
+              </button>
+              <button className="w-full text-left px-4 py-2 hover:bg-gray-100">
+                Log Out
+              </button>
             </div>
           )}
         </div>

@@ -17,10 +17,12 @@ import {
 import { FaQuestionCircle } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 
+// ⭐ FIXED TYPE ERROR HERE
+interface LayoutProps {
+    children: React.ReactNode;
+}
 
-
-
-export default function CompanyListLayout({ children }) {
+export default function CompanyListLayout({ children }: LayoutProps) {
     const [active, setActive] = useState("Dashboard");
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const router = useRouter();
@@ -42,6 +44,7 @@ export default function CompanyListLayout({ children }) {
             {/* Navbar */}
             <div className="flex items-center justify-between px-0 py-0 bg-white border-b border-border shadow-sm">
                 <Navbar1 />
+
                 {/* Hamburger for mobile */}
                 <button
                     className="sm:hidden text-[#007F5F] text-2xl"
@@ -69,8 +72,8 @@ export default function CompanyListLayout({ children }) {
                                     }
                                 }}
                                 className={`flex items-center gap-3 px-5 py-2 text-sm cursor-pointer transition ${active === item.name
-                                    ? "border-l-4 border-[#007F5F] bg-[#E6F4F1] text-[#007F5F]"
-                                    : "border-transparent hover:bg-gray-100"
+                                        ? "border-l-4 border-[#007F5F] bg-[#E6F4F1] text-[#007F5F]"
+                                        : "border-transparent hover:bg-gray-100"
                                     }`}
                             >
                                 <span className="text-lg">{item.icon}</span>
@@ -97,7 +100,9 @@ export default function CompanyListLayout({ children }) {
             {/* Footer */}
             <footer className="w-full bg-white border-t border-gray-200 text-sm text-gray-600 px-4 py-3 flex flex-wrap justify-between items-center z-50 fixed bottom-0 left-0">
                 <span className="text-center sm:text-left w-full sm:w-auto mb-2 sm:mb-0">
-                    Copyright © 2024 <span className="font-semibold text-[#007F5F]">Chapter.1</span> — All rights reserved.
+                    Copyright © 2024{" "}
+                    <span className="font-semibold text-[#007F5F]">Chapter.1</span> — All
+                    rights reserved.
                 </span>
                 <div className="flex items-center gap-2 justify-center sm:justify-end w-full sm:w-auto text-[#007F5F] cursor-pointer hover:text-[#005f45] transition-colors">
                     <span>Need help?</span>
