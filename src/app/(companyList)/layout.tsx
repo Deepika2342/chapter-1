@@ -42,7 +42,7 @@ export default function CompanyListLayout({ children }: LayoutProps) {
     return (
         <main className="min-h-screen bg-border flex flex-col relative">
             {/* Navbar */}
-            <div className="flex items-center justify-between px-0 py-0 bg-white border-b border-border shadow-sm">
+            <div className="flex items-center justify-between px-0 py-0 bg-border border-b border-border shadow-sm">
                 <Navbar1 />
 
                 {/* Hamburger for mobile */}
@@ -57,7 +57,7 @@ export default function CompanyListLayout({ children }: LayoutProps) {
             <div className="flex flex-1 overflow-hidden">
                 {/* Sidebar */}
                 <aside
-                    className={`fixed sm:static top-0 left-0 h-full sm:h-auto bg-white border-r border-gray-200 shadow-md z-40 transform transition-transform duration-300 w-56
+                    className={`fixed sm:static top-0 left-0 h-full sm:h-auto bg-white border-r border-border ml-2  z-40 transform transition-transform duration-300 w-56
           ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} sm:translate-x-0`}
                 >
                     <ul className="mt-16 sm:mt-2 space-y-1">
@@ -92,13 +92,13 @@ export default function CompanyListLayout({ children }: LayoutProps) {
                 )}
 
                 {/* Main Content */}
-                <section className="flex-1 overflow-y-auto pb-10 pt-0 px-0 sm:px-0">
+                <section className="flex-1 overflow-y-auto pb-16 pt-0 px-0 sm:px-0">
                     {children}
                 </section>
             </div>
 
             {/* Footer */}
-            <footer className="w-full bg-white border-t border-gray-200 text-sm text-gray-600 px-4 py-3 flex flex-wrap justify-between items-center z-50 fixed bottom-0 left-0">
+            <footer className="w-full bg-white border-t border-border text-sm text-gray-600 px-4 py-3 flex flex-wrap justify-between items-center z-50 fixed bottom-0 left-0">
                 <span className="text-center sm:text-left w-full sm:w-auto mb-2 sm:mb-0">
                     Copyright © 2024{" "}
                     <span className="font-semibold text-[#007F5F]">Chapter.1</span> — All

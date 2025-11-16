@@ -62,7 +62,7 @@ const Navbar1 = () => {
   }, []);
 
   return (
-    <nav className="w-full bg-white border-b border-border px-3 flex items-center justify-between h-[60px]">
+    <nav className="w-full bg-border  border-b border-border px-5 mt-1 ml-2 p-1 mr-2 flex items-center justify-between h-[60px]">
 
       {/* LEFT SIDE */}
       <div className="flex items-center gap-3">
@@ -70,10 +70,12 @@ const Navbar1 = () => {
         <Image
           src={logo}
           alt="Chapter Logo"
-          width={120}
-          height={40}
+          width={150}
+          height={60}
           className="object-contain"
         />
+
+
 
         {/* Company Dropdown */}
         <div className="relative" ref={companyRef}>
@@ -89,7 +91,7 @@ const Navbar1 = () => {
             <div className="absolute top-10 left-0 w-72 sm:w-96 bg-white border border-gray-200 shadow-md rounded-sm z-50">
 
               {/* SEARCH BAR */}
-              <div className="flex items-center gap-2 px-3 py-2 bg-gray-50 border-b border-gray-200">
+              <div className="flex items-center gap-2 px-3 py-2 bg-gray-50 border-b border-border">
                 <FaSearch className="text-gray-600" />
                 <input
                   type="text"

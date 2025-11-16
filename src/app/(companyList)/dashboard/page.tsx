@@ -19,9 +19,9 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="flex flex-col bg-gray-50 text-gray-800 relative pb-20 px-0 sm:px-0">
+    <div className="flex flex-col bg-gray-50 text-gray-800 relative mr-2 pb-20 px-0 sm:px-0">
       {/* ===== Header ===== */}
-      <div className="bg-white border-b border-border p-2  rounded-none">
+      <div className="bg-white border-b border-border p-2 mr-3 rounded-none">
         <h2 className="text-xl font-semibold">Dashboard</h2>
         <p className="text-sm text-[#007F5F] mt-1">
           Select Company / Klamp Ecommerce /{" "}
