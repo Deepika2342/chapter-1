@@ -40,7 +40,7 @@ export default function CompanyListLayout({ children }: LayoutProps) {
     ];
 
     return (
-        <main className="min-h-screen bg-border flex flex-col relative p-4">
+        <main className="min-h-screen bg-border flex flex-col relative p-0">
 
             {/* ===== NAVBAR =====*/}
             <div
@@ -79,7 +79,7 @@ export default function CompanyListLayout({ children }: LayoutProps) {
                                 onClick={() => {
                                     setActive(item.name);
                                     setSidebarOpen(false);
-                                    if (item.name === "Dashboard") router.push("/dashboard");
+                                    if (item.name === "selectCompany") router.push("/selectCompany");
                                 }}
                                 className={`flex items-center gap-3 px-5 py-2 text-sm cursor-pointer transition 
           ${active === item.name ? "border-l-4 border-[#007F5F] bg-[#E6F4F1] text-[#007F5F]" : "hover:bg-gray-100"}`}

@@ -78,7 +78,7 @@ const SelectCompany = () => {
 
                 {/* Buttons + Popup Section */}
                 <div className="flex flex-col items-center justify-center mt-[30px]">
-                {/* Buttons Row */}
+                  {/* Buttons Row */}
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative">
                     {/* WITH GST Button */}
                     <button
