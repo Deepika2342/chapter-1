@@ -19,9 +19,9 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="flex flex-col bg-gray-50 text-gray-800 relative pb-20 px-0 sm:px-0">
+    <div className="flex flex-col bg-gray-50 text-gray-800 relative mr-2 pb-20 px-0 sm:px-0">
       {/* ===== Header ===== */}
-      <div className="bg-white border-b border-border p-2  rounded-none">
+      <div className="bg-white border-b border-border p-3 rounded-none">
         <h2 className="text-xl font-semibold">Dashboard</h2>
         <p className="text-sm text-[#007F5F] mt-1">
           Select Company / Klamp Ecommerce /{" "}
@@ -30,7 +30,7 @@ const Dashboard = () => {
       </div>
 
       {/* ===== Main Grid ===== */}
-      <div className="flex flex-col md:flex-row p-2 sm:p-4 gap-6 flex-1">
+      <div className="flex flex-col md:flex-row p-4 gap-6 flex-1">
         {/* ===== Left/Main Section ===== */}
         <div className="flex-1 flex flex-col gap-6">
           {/* ===== Sales & Purchase ===== */}
@@ -75,7 +75,7 @@ const Dashboard = () => {
                 <MdCheckBoxOutlineBlank className="text-gray-600 bg-white" />
                 <span>Items Sold</span>
               </div>
-              <div className="flex items-center gap-2 bg-green-100 text-green-700 px-3 py-2 rounded">
+              <div className="flex items-center gap-2 bg-green-100 text-green-700 px-3 py-2 rounded-none">
                 <MdCheckBoxOutlineBlank className="text-green-700 bg-white" />
                 <span>Total Profit</span>
               </div>
