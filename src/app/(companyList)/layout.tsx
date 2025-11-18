@@ -1,7 +1,7 @@
 "use client";
 
 import Navbar1 from "@/components/navbar1";
-import React, { useState } from "react";
+import React, { useState, ReactNode } from "react";
 import {
     FiHome,
     FiDatabase,
@@ -79,10 +79,7 @@ export default function CompanyListLayout({ children }: LayoutProps) {
                                 onClick={() => {
                                     setActive(item.name);
                                     setSidebarOpen(false);
-
-                                    if (item.name === "Dashboard") {
-                                        router.push("/dashboard");
-                                    }
+                                    if (item.name === "selectCompany") router.push("/selectCompany");
                                 }}
                                 className={`flex items-center gap-3 px-5 py-2 text-sm cursor-pointer transition 
                 ${active === item.name
