@@ -1,126 +1,141 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
-import CancelChange from "@/img/CancelChange.png";
-
 
 const CreateCompany = () => {
-  const [showPopup, setShowPopup] = useState(false);
   const [gstEnabled, setGstEnabled] = useState(false);
   const [tdsEnabled, setTdsEnabled] = useState(false);
 
-
-
-
+  const [showPopup, setShowPopup] = useState(false);
+  const [showCreateCompany, setShowCreateCompany] = useState(false);
 
   return (
     <div className="w-full bg-[#E0F4EC] flex justify-evenly items-start py-4 px-2">
-      <div className="bg-white w-full max-w-8xl shadow-md rounded-none border border-gray-200">
-        {/* Header */}
+      <div className="bg-white w-full max-w-8xl shadow-md rounded-none border border-gray-200 relative">
+
+        {/* HEADER */}
         <div className="flex justify-between items-center border-b-1 border-border px-1 py-1">
           <div>
-            <h2 className="text-xl font-bold text-gray-800">Create Company</h2>
+            <span className="hidden sm:inline text-gray-600 text-xs sm:text-sm md:text-base truncate font-semibold">Create Company</span>
             <p className="text-sm text-[#007F5F] font-light">
               Accounting Books / Select Company /{" "}
               <span className="font-semibold">Create Company</span>
             </p>
           </div>
-          <div className="flex gap-3">
-            <button
-              className="px-5 py-2 bg-[#105F62] text-white text-sm transition"
-              onClick={() => setShowPopup(true)}
-            >
-              CANCEL
-            </button>
 
-            {/* Popup */}
-            {showPopup && (
-              <div className="fixed inset-0 flex items-center justify-center bg-black/25 z-50">
-                <div
-                  className="rounded-none shadow-lg flex flex-col items-center text-center overflow-hidden"
-                  style={{ width: "350px", height: "340px" }}
-                >
-                  {/* Top Green Section */}
-                  <div className="bg-border w-full flex justify-center items-center py-6">
-                    <Image
-                      src={CancelChange}
-                      alt="Cancel Changes"
-                      width={150}
-                      height={150}
-                      className="mx-auto"
-                    />
-                  </div>
-
-                  {/* Bottom White Section */}
-                  <div className="bg-white w-full flex flex-col items-center text-center p-2 flex-grow">
-                    <h1 className="text-lg font-bold text-[#060808] mb-2">
-                      Cancel Changes!
-                    </h1>
-                    <p className="text-xs text-gray-700 mb-6 px-4">
-                      Leaving this page will delete all unsaved changes.
-                    </p>
-
-                    <div className="flex justify-center gap-4">
-                      <button
-                        onClick={() => {
-                          alert("Changes Cancelled!");
-                          setShowPopup(false);
-                        }}
-                        className="bg-[#0C6663] text-white px-10 py-2 text-sm"
-                      >
-                        YES
-                      </button>
-                      <button
-                        onClick={() => setShowPopup(false)}
-                        className="bg-[#0C6663] text-white px-10 py-2 text-sm"
-                      >
-                        NO
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* SUBMIT Button */}
-            <button className="px-5 py-2 bg-[#105F62] text-white text-sm transition">
-              SUBMIT
-            </button>
-          </div>
+          <button
+            className="px-5 py-2 bg-[#105F62] text-white text-sm transition"
+            onClick={() => setShowPopup(true)}
+          >
+            CANCEL
+          </button>
+          <button
+            className="px-5 py-2 bg-[#105F62] text-white text-sm transition"
+            onClick={() => setShowPopup(true)}
+          >
+            SUBMIT
+          </button>
         </div>
 
+        {/* GST POPUP */}
+        {showPopup && (
+          <div className="absolute top-[110%] left-[20px] w-[90%] sm:w-[500px] bg-white border mt-5 p-5 z-50 shadow-lg">
+            <h2 className="text-lg font-semibold text-gray-800 mb-3 text-left px-12">
+              GSTIN
+            </h2>
 
-        {/* Form Body */}
+            <input
+              type="text"
+              className="border border-border px-3 py-2 text-sm w-full"
+              placeholder="Enter GSTIN"
+            />
+
+            <p className="text-[12px] text-gray-600 mb-4 text-left px-12">
+              Enter your 15 digit GSTIN Number
+            </p>
+
+            <div className="flex justify-center gap-3">
+              <button
+                onClick={() => setShowPopup(false)}
+                className="px-6 py-2 text-sm bg-[#105F62] text-white rounded hover:bg-[#43916F] transition"
+              >
+                Cancel
+              </button>
+
+              {/* SUBMIT = CLOSE GST POPUP → OPEN CREATE COMPANY POPUP */}
+              <button
+                onClick={() => {
+                  setShowPopup(false);
+                  setShowCreateCompany(true);
+                }}
+                className="px-6 py-2 text-sm bg-[#105F62] text-white rounded hover:bg-[#43916F] transition"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* CREATE COMPANY POPUP */}
+        {showCreateCompany && (
+          <div className="absolute top-[110%] left-[20px] w-[90%] sm:w-[500px] bg-white border mt-5 p-5 z-50 shadow-lg">
+            <h2 className="text-lg font-semibold text-gray-800 mb-3 text-left px-12">
+              Create Company
+            </h2>
+
+            <input
+              type="text"
+              className="border border-border px-3 py-2 text-sm w-full mb-4"
+              placeholder="Enter Company Name"
+            />
+
+            <div className="flex justify-center gap-3">
+              <button
+                onClick={() => setShowCreateCompany(false)}
+                className="px-6 py-2 text-sm bg-gray-300 text-black rounded hover:bg-gray-400 transition"
+              >
+                Close
+              </button>
+
+              <button
+                onClick={() => {
+                  alert("Company Created!");
+                  setShowCreateCompany(false);
+                }}
+                className="px-6 py-2 text-sm bg-[#105F62] text-white rounded hover:bg-[#43916F] transition"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* MAIN FORM BODY */}
         <div className="p-6 space-y-6 text-[#003C2F]">
-          {/* Basic Info */}
+
+          {/* BASIC INFO */}
           <div>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div>
-                <label className="block text-sm font-semibold mb-1">
-                  Company Name*
-                </label>
+                <label className="block text-sm font-semibold mb-1">Company Name*</label>
                 <input
                   type="text"
                   className="w-full border border-border px-3 py-2"
                   placeholder="ABC Ltd."
                 />
+              </div>
 
-              </div>
               <div>
-                <label className="block text-sm font-semibold mb-1">
-                  Print Name*
-                </label>
+                <label className="block text-sm font-semibold mb-1">Print Name*</label>
                 <input
                   type="text"
                   className="w-full border border-border px-3 py-2"
                   placeholder="ABC Ltd."
                 />
               </div>
+
               <div>
-                <label className="block text-sm font-semibold mb-1 ">
-                  Company Type *
-                </label>
+                <label className="block text-sm font-semibold mb-1">Company Type*</label>
                 <select className="w-full border border-border px-3 py-2">
                   <option>Select</option>
                   <option>Private Limited</option>
@@ -129,11 +144,8 @@ const CreateCompany = () => {
                 </select>
               </div>
 
-
               <div>
-                <label className="block text-sm font-semibold mb-1">
-                  Business Type*
-                </label>
+                <label className="block text-sm font-semibold mb-1">Business Type*</label>
                 <select className="w-full border border-border px-3 py-2">
                   <option>Select</option>
                   <option>Manufacturing</option>
@@ -142,109 +154,47 @@ const CreateCompany = () => {
                 </select>
               </div>
             </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-              <div>
-                <label className="block text-sm font-semibold mb-1">
-                  Company Financial Year
-                </label>
-                <div className="flex gap-4">
-                  <input
-                    type="date"
-                    placeholder="From"
-                    className="border border-border px-3 py-2 w-full rounded-none text-sm
-                        [&::-webkit-calendar-picker-indicator]:bg-[#0C6663]
-                        [&::-webkit-calendar-picker-indicator]:p-1
-                        [&::-webkit-calendar-picker-indicator]:rounded-none
-                        [&::-webkit-calendar-picker-indicator]:cursor-pointer
-                        [&::-webkit-calendar-picker-indicator]:filter-invert"
-                  />
-
-                  <input
-                    type="date"
-                    placeholder="To"
-                    className="border border-border px-3 py-2 w-full rounded-none text-sm
-                        [&::-webkit-calendar-picker-indicator]:bg-[#0C6663]
-                        [&::-webkit-calendar-picker-indicator]:p-1
-                        [&::-webkit-calendar-picker-indicator]:rounded-none
-                        [&::-webkit-calendar-picker-indicator]:cursor-pointer
-                        [&::-webkit-calendar-picker-indicator]:filter-invert"
-                  />
-                </div>
-              </div>
-            </div>
           </div>
 
-          {/*Contact Details */}
+          {/* CONTACT DETAILS */}
           <div>
-            <h3 className="font-semibold text-gray-700 pb-3 mb-1">
-              Company Contact Details
-            </h3>
+            <h3 className="font-semibold text-gray-700 pb-3 mb-1">Company Contact Details</h3>
+
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div>
-                <label className="block text-sm font-semibold mb-1">
-                  Legal Person *
-                </label>
-                <input
-                  type="text"
-                  className="w-full border border-border px-3 py-2"
-                  placeholder="Abcd"
-                />
+                <label className="block text-sm font-semibold mb-1">Legal Person*</label>
+                <input type="text" className="w-full border border-border px-3 py-2" />
               </div>
+
               <div>
-                <label className="block text-sm font-semibold mb-1">
-                  Destination
-                </label>
-                <input
-                  type="text"
-                  className="w-full border border-border px-3 py-2"
-                  placeholder="Abcd"
-                />
+                <label className="block text-sm font-semibold mb-1">Destination</label>
+                <input type="text" className="w-full border border-border px-3 py-2" />
               </div>
+
               <div>
-                <label className="block text-sm font-semibold mb-1">
-                  Company Email *
-                </label>
-                <input
-                  type="email"
-                  className="w-full border border-border px-3 py-2"
-                  placeholder="abc@gmail.com"
-                />
+                <label className="block text-sm font-semibold mb-1">Company Email*</label>
+                <input type="email" className="w-full border border-border px-3 py-2" />
               </div>
+
               <div>
-                <label className="block text-sm font-semibold mb-1">
-                  Contact Number *
-                </label>
-                <input
-                  type="tel"
-                  className="w-full border border-border px-3 py-2"
-                  placeholder="1234567890"
-                />
+                <label className="block text-sm font-semibold mb-1">Contact Number*</label>
+                <input type="tel" className="w-full border border-border px-3 py-2" />
               </div>
             </div>
           </div>
 
-          {/* Section 3 - Address */}
+          {/* ADDRESS */}
           <div>
-            <h3 className="font-semibold text-gray-700 pb-3 mb-1">
-              Company Address
-            </h3>
+            <h3 className="font-semibold text-gray-700 pb-3 mb-1">Company Address</h3>
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <label className="block text-sm font-semibold mb-1">
-                  Official Address *
-                </label>
-                <input
-                  type="text"
-                  className="w-full border border-border px-3 py-2"
-                  placeholder="Street, City"
-                />
+                <label className="block text-sm font-semibold mb-1">Official Address*</label>
+                <input type="text" className="w-full border border-border px-3 py-2" />
               </div>
-              <div>
 
-                <label className="block text-sm font-semibold mb-1">
-                  State *
-                </label>
+              <div>
+                <label className="block text-sm font-semibold mb-1">State*</label>
                 <select className="w-full border border-border px-3 py-2">
                   <option>Select</option>
                   <option>Maharashtra</option>
@@ -252,10 +202,9 @@ const CreateCompany = () => {
                   <option>Delhi</option>
                 </select>
               </div>
+
               <div>
-                <label className="block text-sm font-semibold mb-1">
-                  City *
-                </label>
+                <label className="block text-sm font-semibold mb-1">City*</label>
                 <select className="w-full border border-border px-3 py-2">
                   <option>Select</option>
                   <option>Mumbai</option>
@@ -267,9 +216,7 @@ const CreateCompany = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
               <div>
-                <label className="block text-sm font-semibold mb-1">
-                  Country *
-                </label>
+                <label className="block text-sm font-semibold mb-1">Country*</label>
                 <input
                   type="text"
                   className="w-full border border-border px-3 py-2"
@@ -277,35 +224,28 @@ const CreateCompany = () => {
                   readOnly
                 />
               </div>
+
               <div>
-                <label className="block text-sm font-semibold mb-1">
-                  PIN Code *
-                </label>
-                <input
-                  type="text"
-                  className="w-full border border-border px-3 py-2"
-                  placeholder="395001"
-                />
+                <label className="block text-sm font-semibold mb-1">PIN Code*</label>
+                <input className="w-full border border-border px-3 py-2" />
               </div>
             </div>
           </div>
 
-          {/* GST and TDS */}
+          {/* GST & TDS SECTION */}
           <div className="space-y-6">
+
             {/* GST */}
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <span className="font-semibold">
-                  Enable Goods and Service Tax (GST)
-                </span>
+                <span className="font-semibold">Enable GST</span>
+
                 <button
                   onClick={() => setGstEnabled(!gstEnabled)}
-                  className={`w-11 h-6 flex items-center rounded-full p-[2px] transition-colors duration-300 ${gstEnabled ? "bg-[#1F8F73]" : "bg-gray-300"
-                    }`}
+                  className={`w-11 h-6 flex items-center rounded-full p-[2px] transition ${gstEnabled ? "bg-[#1F8F73]" : "bg-gray-300"}`}
                 >
                   <div
-                    className={`w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-300 ${gstEnabled ? "translate-x-5" : "translate-x-0"
-                      }`}
+                    className={`w-5 h-5 bg-white rounded-full shadow-md transform transition ${gstEnabled ? "translate-x-5" : "translate-x-0"}`}
                   />
                 </button>
               </div>
@@ -313,61 +253,22 @@ const CreateCompany = () => {
               {gstEnabled && (
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
-                    <label className="block text-sm font-medium mb-1">
-                      GST Number*
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="24ASDF2341A5Z1L"
-                      className="border border-border px-3 py-2 w-full rounded-none focus:outline-none focus:ring-1 focus:ring-[#1F8F73] text-sm"
-                    />
+                    <label className="block text-sm font-medium mb-1">GST Number*</label>
+                    <input className="border border-border px-3 py-2 w-full text-sm" />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-1">
-                      GST Registration Date*
-                    </label>
-                    <input
-                      type="date"
-                      className="border border-border px-3 py-2 w-full rounded-none text-sm
-                        [&::-webkit-calendar-picker-indicator]:bg-[#0C6663]
-                        [&::-webkit-calendar-picker-indicator]:p-1
-                        [&::-webkit-calendar-picker-indicator]:rounded-sm
-                        [&::-webkit-calendar-picker-indicator]:cursor-pointer
-                        [&::-webkit-calendar-picker-indicator]:filter-invert"
-                    />
+                    <label className="block text-sm font-medium mb-1">GST Registration Date*</label>
+                    <input type="date" className="border border-border px-3 py-2 w-full text-sm" />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-1">
-                      Registration Type*
-                    </label>
-                    <div className="relative">
-                      <select className="appearance-none border border-[#C8E5E3] px-3 py-2 w-full rounded-none text-sm focus:outline-none focus:ring-1 focus:ring-[#1F8F73] bg-white">
-
-                        <option>Regular</option>
-                        <option>Composition</option>
-                        <option>Regular-SEZ</option>
-                        <option>Unregiter</option>
-                        <option>Exports</option>
-                        <option>Ecommerce</option>
-
-                      </select>
-                      <div className="absolute right-0 top-0 h-full w-8 flex items-center justify-center bg-[#0C6663] border-l border-[#C8E5E3] pointer-events-none">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="w-3 h-3 text-white"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      </div>
-                    </div>
+                    <label className="block text-sm font-medium mb-1">Registration Type*</label>
+                    <select className="border border-border px-3 py-2 w-full text-sm bg-white">
+                      <option>Regular</option>
+                      <option>Composition</option>
+                      <option>Exports</option>
+                    </select>
                   </div>
                 </div>
               )}
@@ -376,17 +277,14 @@ const CreateCompany = () => {
             {/* TDS */}
             <div className="border-t border-[#C8E5E3] pt-6 space-y-3">
               <div className="flex items-center justify-between">
-                <span className="font-semibold">
-                  Enable Tax Deducted at Source (TDS)
-                </span>
+                <span className="font-semibold">Enable TDS</span>
+
                 <button
                   onClick={() => setTdsEnabled(!tdsEnabled)}
-                  className={`w-11 h-6 flex items-center rounded-full p-[2px] transition-colors duration-300 ${tdsEnabled ? "bg-[#1F8F73]" : "bg-gray-300"
-                    }`}
+                  className={`w-11 h-6 flex items-center rounded-full p-[2px] transition ${tdsEnabled ? "bg-[#1F8F73]" : "bg-gray-300"}`}
                 >
                   <div
-                    className={`w-5 h-5 bg-white rounded-full    shadow-md transform transition-transform duration-300 ${tdsEnabled ? "translate-x-5" : "translate-x-0"
-                      }`}
+                    className={`w-5 h-5 bg-white rounded-full shadow-md transform transition ${tdsEnabled ? "translate-x-5" : "translate-x-0"}`}
                   />
                 </button>
               </div>
@@ -394,34 +292,23 @@ const CreateCompany = () => {
               {tdsEnabled && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium mb-1">
-                      TAN Number*
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="24ASDF2341A5Z1L"
-                      className="border border-border px-3 py-2 w-full rounded-none focus:outline-none focus:ring-1 focus:ring-[#1F8F73] text-sm"
-                    />
+                    <label className="block text-sm font-medium mb-1">TAN Number*</label>
+                    <input className="border border-border px-3 py-2 w-full text-sm" />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-1">
-                      Percentage *
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="5%"
-                      className="border border-border px-3 py-2 w-full rounded-none focus:outline-none focus:ring-1 focus:ring-[#1F8F73] text-sm"
-                    />
+                    <label className="block text-sm font-medium mb-1">Percentage*</label>
+                    <input className="border border-border px-3 py-2 w-full text-sm" />
                   </div>
                 </div>
               )}
             </div>
+
           </div>
         </div>
-      </div>
-    </div >
 
+      </div>
+    </div>
   );
 };
 

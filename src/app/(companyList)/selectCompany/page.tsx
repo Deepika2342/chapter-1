@@ -23,14 +23,16 @@ const SelectCompany = () => {
   const [showModal, setShowModal] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
+
   return (
     <div className="flex flex-col min-h-screen bg-[#E0F4EC]">
+
       {/* Main Container */}
       <div className="flex-1 bg-white">
         {/* Header Section */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center px-4 sm:px-2 py-3 border-b border-gray-200">
-          <div className="mb-1 sm:mb-0">
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold">Select Company</h2>
+        <div className="flex flex-col sm:flex-row  justify-between items-start sm:items-center px-4 sm:px-2 py-3 border-b border-gray-200">
+          <div className="mb-1 mt-5 sm:mb-0">
+            <span className="hidden sm:inline text-gray-600 text-xs sm:text-sm md:text-base truncate font-semibold">Select Company</span>
             <p className="text-xs sm:text-sm text-[#007F5F] font-extralight">
               Accounting Books / <span className="font-extralight">Select Company</span>
             </p>
@@ -55,7 +57,7 @@ const SelectCompany = () => {
           </div>
         </div>
 
-        {/* ✅ Modal (Create Company Popup) */}
+        {/*  Modal (Create Company Popup) */}
         {showModal && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
             <div className="bg-white rounded shadow-lg w-[90%] sm:w-[500px]">
@@ -77,13 +79,13 @@ const SelectCompany = () => {
                 </p>
 
                 {/* Buttons + Popup Section */}
-                <div className="flex flex-col items-center justify-center mt-[30px]">
-                {/* Buttons Row */}
-                  <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative">
+                <div className="flex flex-col items-center justify-center mt-[40px]">
+                  {/* Buttons Row */}
+                  <div className="flex flex-col sm:flex-row items-center justify-center  gap-4 relative">
                     {/* WITH GST Button */}
                     <button
                       onClick={() => setShowPopup(!showPopup)}
-                      className="border border-[#007F5F] text-[#007F5F] w-[200px] h-[40px] text-sm font-medium rounded-[2px] hover:bg-[#43916F] hover:text-white transition"
+                      className="border border-[#007F5F] text-[#007F5F] w-[200px] h-[40px] text-sm font-medium rounded-none hover:bg-[#43916F] hover:text-white transition"
                     >
                       WITH GST
                     </button>
@@ -97,7 +99,7 @@ const SelectCompany = () => {
 
                     {/* Popup (Below WITH GST Button) */}
                     {showPopup && (
-                      <div className="absolute top-[110%] left-20px w-[90%] sm:w-[500px] bg-white border mt-5 p-5 z-10 transition-all duration-300">
+                      <div className="absolute top-[105%] left-20px w-[70%] sm:w-[500px] bg-white border mt-5 p-2 z-5 transition-all duration-300">
                         <h2 className="text-lg font-semibold text-gray-800 mb-3 text-left px-12">GSTIN</h2>
 
                         <input
@@ -116,16 +118,18 @@ const SelectCompany = () => {
                           >
                             Cancel
                           </button>
-
                           <button
                             onClick={() => {
                               alert("GSTIN Submitted!");
                               setShowPopup(false);
+
+                              router.push("/createCompany");
                             }}
                             className="px-6 py-2 text-sm bg-[#105F62] text-white rounded hover:bg-[#43916F] transition"
                           >
                             Submit
                           </button>
+
                         </div>
                       </div>
                     )}
@@ -136,7 +140,7 @@ const SelectCompany = () => {
           </div>
         )}
 
-        {/* ✅ Table Section */}
+        {/*  Table Section */}
         <div className="">
           <table className="min-w-full text-sm text-left text-gray-700 border border-border">
             <thead className="bg-emerald-100 text-gray-900 uppercase text-xs font-semibold">
@@ -203,8 +207,8 @@ const SelectCompany = () => {
           </table>
         </div>
 
-        {/* ✅ Footer Section */}
-        <div className="flex flex-col sm:flex-row justify-between items-center bg-white p-3 mt-50 border-t border-border text-sm text-black font-bold">
+        {/* Footer Section */}
+        <div className="flex justify-between items-center border-t border-humberActive px-2 md:px-3 py-1" >
           <p>Showing 1–8 of 20 results</p>
           <div className="flex items-center space-x-3">
             <button className="text-black font-bold hover:text-green-700">PREVIOUS</button>

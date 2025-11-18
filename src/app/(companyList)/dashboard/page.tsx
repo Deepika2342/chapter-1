@@ -2,7 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import { AiOutlineBank } from "react-icons/ai";
-import { FaWhatsapp, FaQuestionCircle } from "react-icons/fa";
+import { FaWhatsapp } from "react-icons/fa";
 import { PiEnvelopeSimpleFill } from "react-icons/pi";
 import { BiSolidPhoneCall } from "react-icons/bi";
 import { IoMdArrowDropdown } from "react-icons/io";
@@ -21,7 +21,7 @@ const Dashboard = () => {
   return (
     <div className="flex flex-col bg-gray-50 text-gray-800 relative mr-2 pb-20 px-0 sm:px-0">
       {/* ===== Header ===== */}
-      <div className="bg-white border-b border-border p-3 rounded-none">
+      <div className="bg-white border-b border-border p-5 rounded-none">
         <h2 className="text-xl font-semibold">Dashboard</h2>
         <p className="text-sm text-[#007F5F] mt-1">
           Select Company / Klamp Ecommerce /{" "}
