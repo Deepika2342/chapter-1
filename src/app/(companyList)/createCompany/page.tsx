@@ -14,7 +14,7 @@ const CreateCompany = () => {
       <div className="bg-white w-full max-w-8xl shadow-md rounded-none border border-gray-200 relative">
 
         {/* HEADER */}
-        <div className="flex justify-between items-center border-b-1 border-border px-1 py-1">
+        <div className="flex justify-between items-center border-b-1  border-border px-1 gap-0 py-1">
           <div>
             <span className="hidden sm:inline text-gray-600 text-xs sm:text-sm md:text-base truncate font-semibold">Create Company</span>
             <p className="text-sm text-[#007F5F] font-light">
@@ -23,18 +23,21 @@ const CreateCompany = () => {
             </p>
           </div>
 
-          <button
-            className="px-5 py-2 bg-[#105F62] text-white text-sm transition"
-            onClick={() => setShowPopup(true)}
-          >
-            CANCEL
-          </button>
-          <button
-            className="px-5 py-2 bg-[#105F62] text-white text-sm transition"
-            onClick={() => setShowPopup(true)}
-          >
-            SUBMIT
-          </button>
+          <div className="flex gap-3">
+            <button
+              className="px-5 py-2 bg-[#105F62] text-white text-sm transition"
+              onClick={() => setShowPopup(true)}
+            >
+              CANCEL
+            </button>
+
+            <button
+              className="px-5 py-2 bg-[#105F62] text-white text-sm transition"
+              onClick={() => setShowPopup(true)}
+            >
+              SUBMIT
+            </button>
+          </div>
         </div>
 
         {/* GST POPUP */}

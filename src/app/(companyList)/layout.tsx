@@ -1,7 +1,7 @@
 "use client";
 
 import Navbar1 from "@/components/navbar1";
-import React, { useState, ReactNode } from "react";
+import React, { useState, } from "react";
 import {
     FiHome,
     FiDatabase,
