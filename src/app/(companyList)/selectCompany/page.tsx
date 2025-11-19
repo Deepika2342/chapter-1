@@ -208,7 +208,7 @@ const SelectCompany = () => {
         </div>
 
         {/* Footer Section */}
-        <div className="flex justify-between items-center border-t border-humberActive px-2 md:px-3 py-1" >
+        <div className="flex justify-between items-center border-t border-border mb-0 px-5 md:px-0 py-1" >
           <p>Showing 1–8 of 20 results</p>
           <div className="flex items-center space-x-3">
             <button className="text-black font-bold hover:text-green-700">PREVIOUS</button>

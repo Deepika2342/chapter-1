@@ -146,7 +146,6 @@ const CreateCompany = () => {
                   <option>Proprietorship</option>
                 </select>
               </div>
-
               <div>
                 <label className="block text-sm font-semibold mb-1">Business Type*</label>
                 <select className="w-full border border-border px-3 py-2">
