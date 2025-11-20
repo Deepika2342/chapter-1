@@ -16,6 +16,7 @@ const LoginPage = () => {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
+    
 
     if (email === "rohanvaja01@gmail.com" && password === "Rjvaja@1997") {
       alert("Login successful!");
