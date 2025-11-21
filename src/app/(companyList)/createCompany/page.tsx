@@ -1,13 +1,55 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+
+
 
 const CreateCompany = () => {
-  const [gstEnabled, setGstEnabled] = useState(false);
-  const [tdsEnabled, setTdsEnabled] = useState(false);
+  const router = useRouter();
+  const [gst, setGst] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [printName, setPrintName] = useState("");
+  const [companyType, setCompanyType] = useState("");
+  const [businessType, setBusinessType] = useState("");
+
+  const [gstEnabled, setGstEnabled] = useState("");
+  const [tdsEnabled, setTdsEnabled] = useState("");
+
 
   const [showPopup, setShowPopup] = useState(false);
   const [showCreateCompany, setShowCreateCompany] = useState(false);
+
+
+  // ========== CORRECT COMPANY API CALL ==========
+  const companyUser = async () => {
+    try {
+      const payload = {
+        gst_number: gst,
+        company_name: companyName,
+        print_name: printName,
+        company_type: companyType,
+        business_type: businessType,
+      };
+
+      const response = await axios.post(
+        `https://chapter.1.koffeekodes.in/api/company/insert`,
+        payload
+      );
+
+      const token = response.data.token;
+      localStorage.setItem("token", token);
+
+      alert("Company added successfully!");
+      router.push("/selectCompany");
+    } catch (error) {
+      console.error("Error saving company:", error);
+      alert("Failed to create company!");
+    }
+  };
+
+
 
   return (
     <div className="w-full bg-[#E0F4EC] flex justify-evenly items-start py-4 px-2">
@@ -25,15 +67,20 @@ const CreateCompany = () => {
 
           <div className="flex gap-3">
             <button
-              className="px-5 py-2 bg-[#105F62] text-white text-sm transition"
+              className="px-6 py-2 text-sm bg-[#105F62] text-white rounded-none hover:bg-[#43916F] transition "
               onClick={() => setShowPopup(true)}
             >
               CANCEL
             </button>
 
             <button
-              className="px-5 py-2 bg-[#105F62] text-white text-sm transition"
-              onClick={() => setShowPopup(true)}
+              onClick={() => {
+                alert("Company Added Sucessfully!");
+                setShowPopup(false);
+
+                router.push("/selectCompany");
+              }}
+              className="px-6 py-2 text-sm bg-[#105F62] text-white rounded-none hover:bg-[#43916F] transition"
             >
               SUBMIT
             </button>
@@ -60,7 +107,7 @@ const CreateCompany = () => {
             <div className="flex justify-center gap-3">
               <button
                 onClick={() => setShowPopup(false)}
-                className="px-6 py-2 text-sm bg-[#105F62] text-white rounded hover:bg-[#43916F] transition"
+                className="px-6 py-2 text-sm bg-[#105F62] text-white rounded-none hover:bg-[#43916F] transition"
               >
                 Cancel
               </button>
@@ -71,7 +118,7 @@ const CreateCompany = () => {
                   setShowPopup(false);
                   setShowCreateCompany(true);
                 }}
-                className="px-6 py-2 text-sm bg-[#105F62] text-white rounded hover:bg-[#43916F] transition"
+                className="px-6 py-2 text-sm bg-[#105F62] text-white rounded-none hover:bg-[#43916F] transition"
               >
                 Submit
               </button>
@@ -123,6 +170,8 @@ const CreateCompany = () => {
                 <label className="block text-sm font-semibold mb-1">Company Name*</label>
                 <input
                   type="text"
+                  value={companyName}
+                  onChange={(e) => setCompanyName(e.target.value)}
                   className="w-full border border-border px-3 py-2"
                   placeholder="ABC Ltd."
                 />
@@ -132,6 +181,8 @@ const CreateCompany = () => {
                 <label className="block text-sm font-semibold mb-1">Print Name*</label>
                 <input
                   type="text"
+                  value={printName}
+                  onChange={(e) => setPrintName(e.target.value)}
                   className="w-full border border-border px-3 py-2"
                   placeholder="ABC Ltd."
                 />
@@ -139,16 +190,24 @@ const CreateCompany = () => {
 
               <div>
                 <label className="block text-sm font-semibold mb-1">Company Type*</label>
-                <select className="w-full border border-border px-3 py-2">
+                <select
+                  className="w-full border border-border px-3 py-2"
+                  onChange={(e) => setCompanyType(e.target.value)}
+                >
                   <option>Select</option>
                   <option>Private Limited</option>
                   <option>LLP</option>
                   <option>Proprietorship</option>
                 </select>
               </div>
+
+
               <div>
                 <label className="block text-sm font-semibold mb-1">Business Type*</label>
-                <select className="w-full border border-border px-3 py-2">
+                <select
+                  className="w-full border border-border px-3 py-2"
+                  onChange={(e) => setBusinessType(e.target.value)}
+                >
                   <option>Select</option>
                   <option>Manufacturing</option>
                   <option>Trading</option>

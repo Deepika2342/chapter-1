@@ -29,6 +29,8 @@ function Home() {
       className={`transition-opacity duration-500 ${fadeOut ? "opacity-0" : "opacity-100"}`}
     >
       <Loading />
+     
+
     </div>
   );
 }

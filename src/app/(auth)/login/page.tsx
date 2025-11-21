@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import axios from "axios";
 import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -14,17 +15,35 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    
 
-    if (email === "rohanvaja01@gmail.com" && password === "Rjvaja@1997") {
+  //  Correct API Login Function //
+  const authenticateUser = async () => {
+    try {
+      const response = await axios.post(`https://chapter.1.koffeekodes.in/api/login`, {
+        username: email,
+        password: password,
+      });
+
+      const token = response.data.token;
+
+      localStorage.setItem("token", token);
       alert("Login successful!");
+
+      // Redirect to next page
       router.push("/selectCompany");
-    } else {
+
+    } catch (error: any) {
+      console.error("Error during authentication:", error);
       alert("Invalid email or password!");
     }
   };
+
+  // Form Submit
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    authenticateUser(); // calling API here
+  };
+
 
   return (
     <div className="w-full h-dvh overflow-hidden bg-background flex flex-col">
