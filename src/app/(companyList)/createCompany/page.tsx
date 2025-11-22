@@ -4,61 +4,105 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
-
-
 const CreateCompany = () => {
   const router = useRouter();
+
   const [gst, setGst] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [printName, setPrintName] = useState("");
   const [companyType, setCompanyType] = useState("");
   const [businessType, setBusinessType] = useState("");
 
-  const [gstEnabled, setGstEnabled] = useState("");
-  const [tdsEnabled, setTdsEnabled] = useState("");
+  const [gstEnabled, setGstEnabled] = useState(false);
+  const [tdsEnabled, setTdsEnabled] = useState(false);
 
+  const [legalPerson, setLegalPerson] = useState("");
+  const [destination, setDestination] = useState("");
+  const [companyEmail, setCompanyEmail] = useState("");
+  const [contactNumber, setContactNumber] = useState("");
+
+  // ADDRESS
+  const [officialAddress, setOfficialAddress] = useState("");
+  const [state, setState] = useState("");
+  const [city, setCity] = useState("");
+  const [pinCode, setPinCode] = useState("");
+
+  // GST & TDS
+  const [gstNumber, setGstNumber] = useState("");
+  const [gstRegistrationDate, setGstRegistrationData] = useState("");
+  const [gstRegistrationType, setGstRegistrationType] = useState("Regular");
 
   const [showPopup, setShowPopup] = useState(false);
   const [showCreateCompany, setShowCreateCompany] = useState(false);
 
-
-  // ========== CORRECT COMPANY API CALL ==========
+  // ===================== CREATE COMPANY API =====================
   const companyUser = async () => {
     try {
       const payload = {
-        gst_number: gst,
-        company_name: companyName,
-        print_name: printName,
-        company_type: companyType,
-        business_type: businessType,
+        name: companyName,
+        printName: printName,
+        companyType: companyType,
+        businessType: businessType,
+
+        // Contact
+        legalPerson: legalPerson,
+        destination: destination,
+        email: companyEmail,
+        phoneNumber: contactNumber,
+
+        // Address
+        address: officialAddress,
+        state: state,
+        city: city,
+        country: "India",
+        pincode: pinCode,
+
+        // GST
+        gstenabled: gstEnabled,
+        gstNo: gstNumber,
+        gstRegDate: gstRegistrationDate,
+        gstRegType: gstRegistrationType,
+
+        // TDS
+        tds_enabled: tdsEnabled,
       };
+
 
       const response = await axios.post(
         `https://chapter.1.koffeekodes.in/api/company/insert`,
         payload
       );
 
-      const token = response.data.token;
-      localStorage.setItem("token", token);
+      console.log("response:::", response);
 
-      alert("Company added successfully!");
-      router.push("/selectCompany");
+      if (response?.data?.st) {
+        const token = response.data.token;
+
+        if (token) {
+          localStorage.setItem("token", token);
+        }
+
+        alert("Company added successfully!");
+        router.push("/selectCompany");
+      } else {
+        alert("Invalid Credential");
+      }
     } catch (error) {
       console.error("Error saving company:", error);
       alert("Failed to create company!");
     }
   };
 
-
-
   return (
     <div className="w-full bg-[#E0F4EC] flex justify-evenly items-start py-4 px-2">
       <div className="bg-white w-full max-w-8xl shadow-md rounded-none border border-gray-200 relative">
 
         {/* HEADER */}
-        <div className="flex justify-between items-center border-b-1  border-border px-1 gap-0 py-1">
+        <div className="flex justify-between items-center border-b-1 border-border px-1 gap-0 py-1">
           <div>
-            <span className="hidden sm:inline text-gray-600 text-xs sm:text-sm md:text-base truncate font-semibold">Create Company</span>
+            <span className="hidden sm:inline text-gray-600 text-xs sm:text-sm md:text-base truncate font-semibold">
+              Create Company
+            </span>
             <p className="text-sm text-[#007F5F] font-light">
               Accounting Books / Select Company /{" "}
               <span className="font-semibold">Create Company</span>
@@ -67,19 +111,14 @@ const CreateCompany = () => {
 
           <div className="flex gap-3">
             <button
-              className="px-6 py-2 text-sm bg-[#105F62] text-white rounded-none hover:bg-[#43916F] transition "
+              className="px-6 py-2 text-sm bg-[#105F62] text-white rounded-none hover:bg-[#43916F] transition"
               onClick={() => setShowPopup(true)}
             >
               CANCEL
             </button>
 
             <button
-              onClick={() => {
-                alert("Company Added Sucessfully!");
-                setShowPopup(false);
-
-                router.push("/selectCompany");
-              }}
+              onClick={companyUser}
               className="px-6 py-2 text-sm bg-[#105F62] text-white rounded-none hover:bg-[#43916F] transition"
             >
               SUBMIT
@@ -98,6 +137,7 @@ const CreateCompany = () => {
               type="text"
               className="border border-border px-3 py-2 text-sm w-full"
               placeholder="Enter GSTIN"
+              onChange={(e) => setGst(e.target.value)}
             />
 
             <p className="text-[12px] text-gray-600 mb-4 text-left px-12">
@@ -112,7 +152,6 @@ const CreateCompany = () => {
                 Cancel
               </button>
 
-              {/* SUBMIT = CLOSE GST POPUP → OPEN CREATE COMPANY POPUP */}
               <button
                 onClick={() => {
                   setShowPopup(false);
@@ -137,6 +176,7 @@ const CreateCompany = () => {
               type="text"
               className="border border-border px-3 py-2 text-sm w-full mb-4"
               placeholder="Enter Company Name"
+              onChange={(e) => setCompanyName(e.target.value)}
             />
 
             <div className="flex justify-center gap-3">
@@ -201,7 +241,6 @@ const CreateCompany = () => {
                 </select>
               </div>
 
-
               <div>
                 <label className="block text-sm font-semibold mb-1">Business Type*</label>
                 <select
@@ -211,7 +250,7 @@ const CreateCompany = () => {
                   <option>Select</option>
                   <option>Manufacturing</option>
                   <option>Trading</option>
-                  <option>Services</option>
+                  <option> Regular</option>
                 </select>
               </div>
             </div>
@@ -224,22 +263,34 @@ const CreateCompany = () => {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div>
                 <label className="block text-sm font-semibold mb-1">Legal Person*</label>
-                <input type="text" className="w-full border border-border px-3 py-2" />
+                <input type="text"
+                  value={legalPerson}
+                  onChange={(e) => setLegalPerson(e.target.value)}
+                  className="w-full border border-border px-3 py-2" />
               </div>
 
               <div>
                 <label className="block text-sm font-semibold mb-1">Destination</label>
-                <input type="text" className="w-full border border-border px-3 py-2" />
+                <input type="text"
+                  value={destination}
+                  onChange={(e) => setDestination(e.target.value)}
+                  className="w-full border border-border px-3 py-2" />
               </div>
 
               <div>
                 <label className="block text-sm font-semibold mb-1">Company Email*</label>
-                <input type="email" className="w-full border border-border px-3 py-2" />
+                <input type="email"
+                  value={companyEmail}
+                  onChange={(e) => setCompanyEmail(e.target.value)}
+                  className="w-full border border-border px-3 py-2" />
               </div>
 
               <div>
                 <label className="block text-sm font-semibold mb-1">Contact Number*</label>
-                <input type="tel" className="w-full border border-border px-3 py-2" />
+                <input type="tel"
+                  value={contactNumber}
+                  onChange={(e) => setContactNumber(e.target.value)}
+                  className="w-full border border-border px-3 py-2" />
               </div>
             </div>
           </div>
@@ -251,7 +302,10 @@ const CreateCompany = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
                 <label className="block text-sm font-semibold mb-1">Official Address*</label>
-                <input type="text" className="w-full border border-border px-3 py-2" />
+                <input type="text"
+                  value={officialAddress}
+                  onChange={(e) => setOfficialAddress(e.target.value)}
+                  className="w-full border border-border px-3 py-2" />
               </div>
 
               <div>

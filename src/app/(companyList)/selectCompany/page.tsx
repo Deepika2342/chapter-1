@@ -16,26 +16,34 @@ const SelectCompany = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [gst, setGst] = useState("");
 
-  // API DATA STATES
-  const [companyList, setCompanyList] = useState([] as any[]);
+  const [companyList, setCompanyList] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  // FETCH API
+  // SIMPLE GET API FUNCTION
   const getCompanyList = async () => {
+    setLoading(true);
+
     try {
-      const response = await axios.get(
-        "https://chapter.1.koffeekodes.in/api/company/insert"
+      const response = await axios.post(
+        "https://chapter.1.koffeekodes.in/api/company/get"
       );
-      setCompanyList(response.data?.data || []);
-      console.log("COMPANY LIST:", response.data.data);
+
+      console.log("API Response:", response.data);
+
+      setCompanyList(response.data.data || []);
     } catch (error) {
-      console.error(error);
-      alert("Failed to load companies!");
+      console.error("API Error:", error);
+      alert("Failed to load company data!");
     }
+
+    setLoading(false);
   };
 
+  // CALL API ON PAGE LOAD
   useEffect(() => {
     getCompanyList();
   }, []);
+
 
   return (
     <div className="flex flex-col min-h-screen bg-[#E0F4EC]">
@@ -69,10 +77,13 @@ const SelectCompany = () => {
           </div>
         </div>
 
+        {/* LOADING */}
+        {loading && <p className="text-blue-600">Loading...</p>}
+
         {/* CREATE COMPANY MODAL */}
         {showModal && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-            <div className="bg-white rounded shadow-lg w-[90%] sm:w-[500px]">
+            <div className="bg-white rounded shadow-lg w-[70%] sm:w-[500px]">
 
               <div className="bg-[#105F62] text-white flex justify-between items-center px-4 py-2">
                 <h2 className="text-md font-bold">Create Company</h2>
@@ -95,33 +106,32 @@ const SelectCompany = () => {
 
                   <button
                     onClick={() => setShowPopup(!showPopup)}
-                    className="border border-[#007F5F] text-[white] w-[200px] h-[20px] text-sm  hover:bg-[#00695C] "
+                    className="border border-[#007F5F] text-[#00695C] w-[200px] h-[40px] text-sm  hover:text-[White] hover:bg-[#00695C] "
                   >
                     WITH GST
                   </button>
 
                   <button
                     onClick={() => router.push("/createCompany")}
-                    className="border border-[#007F5F] text-[white] w-[200px] h-[40px] text-sm  hover:bg-[#00695C]"
+                    className="border border-[#007F5F] text-[#00695C] w-[200px] h-[40px] text-sm  hover:text-[White] hover:bg-[#00695C]"
                   >
                     NON - GST
                   </button>
 
                   {/* GST POPUP */}
                   {showPopup && (
-                    <div className="absolute top-[105%] left-[2px] w-full sm:w-[500px] bg-white border border-border p-4 shadow-lg z-50">
+                    <div className="absolute top-[105%] left-[0px] w-full sm:w-[500px] bg-white border border-border p-4 z-50">
 
-                      <h2 className="text-lg font-semibold px-5 ">GSTIN</h2>
+                      <h2 className="text-lg font-semibold px-0 text-left">GSTIN</h2>
 
                       <input
                         type="text"
                         value={gst}
                         onChange={(e) => setGst(e.target.value)}
-                        className="border px-2 py-1 text-sm w-full mt-0"
-                        placeholder="Enter 15-digit GSTIN"
+                        className="border border-border px-2 py-1 text-sm w-full mt-0"
                       />
 
-                      <p className="text-xs text-gray-600 px-5 mt-1">
+                      <p className="text-xs text-gray-600 px-5 mt-1 text-left">
                         Enter your 15 digit GSTIN Number
                       </p>
 
@@ -159,9 +169,9 @@ const SelectCompany = () => {
         )}
 
         {/* TABLE */}
-        <div className="py-4">
-          <table className="min-w-full text-sm border">
-            <thead className="bg-[white] text-gray-900 text-xs font-semibold">
+        <div className="py-0">
+          <table className="min-w-full text-sm border border-border">
+            <thead className="bg-[white] text-gray-900 border border-border text-xs font-semibold">
               <tr>
                 <th className="px-4 py-2 border">ID</th>
                 <th className="px-4 py-2 border">Company Name</th>

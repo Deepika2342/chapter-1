@@ -20,17 +20,26 @@ const LoginPage = () => {
   const authenticateUser = async () => {
     try {
       const response = await axios.post(`https://chapter.1.koffeekodes.in/api/login`, {
-        username: email,
+        email: email,
         password: password,
       });
+      
+      console.log('response::: ', response);
 
-      const token = response.data.token;
+      if (response?.data?.st) {
 
-      localStorage.setItem("token", token);
-      alert("Login successful!");
+        const token = response.data.token;
 
-      // Redirect to next page
-      router.push("/selectCompany");
+        localStorage.setItem("token", token);
+        alert("Login successful!");
+
+        // Redirect to next page
+        router.push("/selectCompany");
+      } else {
+        alert("Invalid Credential")
+      }
+
+
 
     } catch (error: any) {
       console.error("Error during authentication:", error);
